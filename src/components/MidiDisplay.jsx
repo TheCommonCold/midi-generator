@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import '../style/App.css';
 import midiFile from '../files/midi.mid';
 import midiParser from 'midi-parser-js';
@@ -47,8 +47,6 @@ function makeGrid(height=60, progression){
 function MidiDisplay() {
   const progressions = [createRandomProgression(),createRandomProgression(),createRandomProgression(),createRandomProgression()]
 
-    const [notes, setNotes] = useState([]);
-
     useEffect(() => {
         async function getData() {
           const response = await fetch(midiFile)
@@ -68,7 +66,6 @@ function MidiDisplay() {
             }
           }
 
-          setNotes(notes)
         }
         getData()
       }, [])

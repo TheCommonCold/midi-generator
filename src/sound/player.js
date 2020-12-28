@@ -10,13 +10,13 @@ export function playProgression(chords, rythm){
 
 export function playChord(chord,duration){
   chord.map(note => {
-      noteOn(note, duration)
+      return noteOn(note, duration)
   })
 }
 
 export function noteOn(midiNote, duration) {
 
-  var ac = new (window.AudioContext || window.webkitAudioContext);
+  var ac = new window.AudioContext();
   var o = ac.createOscillator();
   var g = ac.createGain();
   var f = ac.createBiquadFilter();
