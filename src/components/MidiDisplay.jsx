@@ -49,7 +49,6 @@ function MidiDisplay() {
 
     const [notes, setNotes] = useState([]);
 
-
     useEffect(() => {
         async function getData() {
           const response = await fetch(midiFile)
