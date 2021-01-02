@@ -1,4 +1,4 @@
-import MidiDisplay from './MidiDisplay'
+import Grid from './Grid'
 import '../style/App.css';
 import {Jumbotron} from 'reactstrap'
 
@@ -6,7 +6,7 @@ import {Jumbotron} from 'reactstrap'
 function App() {
   return (
     <Jumbotron>
-      <MidiDisplay/>
+      <Grid/>
     </Jumbotron>
   );
 }
