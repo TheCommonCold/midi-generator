@@ -1,17 +1,20 @@
 {
   "name": "midi-generator",
   "version": "0.1.0",
+  "homepage": "https://thecommoncold.github.io/midi-generator/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
+    "@tonejs/midi": "^2.0.25",
     "bootstrap": "^4.5.3",
     "midi-parser-js": "^4.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "reactstrap": "^8.8.0",
+    "tone": "^14.7.58",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

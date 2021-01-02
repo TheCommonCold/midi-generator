@@ -1,3 +1,8 @@
+import * as Tone from 'tone'
+
+const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+const now = Tone.now()
+
 
 export function playProgression(chords, rythm){
   let lengths = rythm
@@ -9,9 +14,9 @@ export function playProgression(chords, rythm){
 }
 
 export function playChord(chord,duration){
-  chord.map(note => {
-      return noteOn(note, duration)
-  })
+  const now = Tone.now()
+  synth.triggerAttack(chord, now);
+  synth.triggerRelease(chord, now + duration);
 }
 
 export function noteOn(midiNote, duration) {
