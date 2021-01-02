@@ -1,7 +1,6 @@
 import * as Tone from 'tone'
 
 const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-const now = Tone.now()
 
 
 export function playProgression(chords, rythm){
