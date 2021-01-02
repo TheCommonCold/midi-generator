@@ -20,7 +20,7 @@ export function createRandomProgression(){
     let chords = []
     let lengths = constructRythm(8)
     for(let i = 0; i<lengths.length; i++){
-        chords.push(RandomChord(1,'major',2,5))
+        chords.push(RandomChord(0,'major',2,5))
     }
     return {chords, rythm: lengths}
 }
@@ -38,6 +38,7 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     if(Math.random()-(1/4)>rootNote/12)
         rootNote+=12
     transposed.push(rootNote+24)
+    transposed.push(rootNote+12)
 
     return transposed
 }

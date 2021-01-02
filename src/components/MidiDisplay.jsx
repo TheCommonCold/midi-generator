@@ -13,7 +13,7 @@ function makeGrid(height=60, progression){
     playProgression(progression.chords, progression.rythm)
   }
 
-  const baseLine = 24
+  const baseLine = 12
   let cols = []
   let length = 0
   for(let j = 0; j<progression.rythm.length; j++ ){

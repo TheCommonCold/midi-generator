@@ -1,21 +1,65 @@
 import * as Tone from 'tone'
 
-const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+const gain = new Tone.Gain(0.2).toDestination();
+const filter = new Tone.Filter({frequency: 1000, type: "lowpass", rolloff: -12, Q: 0}).connect(gain);
 
+const synth = new Tone.PolySynth(Tone.Synth,{
+  oscillator : {
+    count: 2,
+    spread: 5,
+    type : "sawtooth",
+  },
+  // envelope: {
+  //   attack: 0.01,
+  //   decay: 15,
+  //   sustain: 0.20,
+  //   release: 0.1,
+  // },
+    envelope: {
+    attack: 0.002,
+    decay: 0,
+    sustain: 1,
+    release: 0.1,
+  },
+}).connect(filter);
+
+const notesMap = [
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B'
+]
 
 export function playProgression(chords, rythm){
   let lengths = rythm
   let delay = 0
   for(let i = 0; i<lengths.length; i++){
-      setTimeout(function(){ playChord(chords[i],lengths[i]*1000); }, delay*1000);
+      setTimeout(function(){ playChord(chords[i],lengths[i]); }, delay*1000);
       delay += lengths[i]
   }
 }
 
 export function playChord(chord,duration){
   const now = Tone.now()
-  synth.triggerAttack(chord, now);
-  synth.triggerRelease(chord, now + duration);
+  const translatedNotes = translateNumbersIntoNotes(chord)
+  synth.triggerAttack(translatedNotes, now);
+  synth.releaseAll ( now + duration);
+}
+
+function translateNumbersIntoNotes(notes){
+  return notes.map(x => {
+    const octave = Math.floor(x/12);
+    const note = notesMap[x%12];
+    return note+octave.toString();
+  })
 }
 
 export function noteOn(midiNote, duration) {
