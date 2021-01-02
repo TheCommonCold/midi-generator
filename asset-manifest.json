@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.79796ccb.chunk.css",
-    "main.js": "/static/js/main.05cb09d9.chunk.js",
-    "main.js.map": "/static/js/main.05cb09d9.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.c2251856.js",
-    "runtime-main.js.map": "/static/js/runtime-main.c2251856.js.map",
-    "static/css/2.20aa2d7b.chunk.css": "/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.b53735e6.chunk.js": "/static/js/2.b53735e6.chunk.js",
-    "static/js/2.b53735e6.chunk.js.map": "/static/js/2.b53735e6.chunk.js.map",
-    "static/js/3.62d72717.chunk.js": "/static/js/3.62d72717.chunk.js",
-    "static/js/3.62d72717.chunk.js.map": "/static/js/3.62d72717.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.20aa2d7b.chunk.css.map": "/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.79796ccb.chunk.css.map": "/static/css/main.79796ccb.chunk.css.map",
-    "static/js/2.b53735e6.chunk.js.LICENSE.txt": "/static/js/2.b53735e6.chunk.js.LICENSE.txt",
-    "static/media/midi.9923a118.mid": "/static/media/midi.9923a118.mid"
+    "main.css": "/midi-generator/static/css/main.79796ccb.chunk.css",
+    "main.js": "/midi-generator/static/js/main.70a188a5.chunk.js",
+    "main.js.map": "/midi-generator/static/js/main.70a188a5.chunk.js.map",
+    "runtime-main.js": "/midi-generator/static/js/runtime-main.5b5ebe6d.js",
+    "runtime-main.js.map": "/midi-generator/static/js/runtime-main.5b5ebe6d.js.map",
+    "static/css/2.20aa2d7b.chunk.css": "/midi-generator/static/css/2.20aa2d7b.chunk.css",
+    "static/js/2.61ee86d3.chunk.js": "/midi-generator/static/js/2.61ee86d3.chunk.js",
+    "static/js/2.61ee86d3.chunk.js.map": "/midi-generator/static/js/2.61ee86d3.chunk.js.map",
+    "static/js/3.1b41282b.chunk.js": "/midi-generator/static/js/3.1b41282b.chunk.js",
+    "static/js/3.1b41282b.chunk.js.map": "/midi-generator/static/js/3.1b41282b.chunk.js.map",
+    "index.html": "/midi-generator/index.html",
+    "static/css/2.20aa2d7b.chunk.css.map": "/midi-generator/static/css/2.20aa2d7b.chunk.css.map",
+    "static/css/main.79796ccb.chunk.css.map": "/midi-generator/static/css/main.79796ccb.chunk.css.map",
+    "static/js/2.61ee86d3.chunk.js.LICENSE.txt": "/midi-generator/static/js/2.61ee86d3.chunk.js.LICENSE.txt",
+    "static/media/midi.9923a118.mid": "/midi-generator/static/media/midi.9923a118.mid"
   },
   "entrypoints": [
-    "static/js/runtime-main.c2251856.js",
+    "static/js/runtime-main.5b5ebe6d.js",
     "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.b53735e6.chunk.js",
+    "static/js/2.61ee86d3.chunk.js",
     "static/css/main.79796ccb.chunk.css",
-    "static/js/main.05cb09d9.chunk.js"
+    "static/js/main.70a188a5.chunk.js"
   ]
 }
