@@ -1,1 +1,44 @@
+.jumbotron {
+    background-color: rgb(35, 38, 39)!important;
+  }
 
+
+.vote{
+    position: absolute;
+    width: 50%;
+    height: 80%;
+    top: 0;
+    z-index: 2;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0);
+}
+
+.vote:hover{
+    display: block;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.up{
+    left:0;
+}
+
+.up:hover{
+    background-color: rgba(0, 255, 0, 0.3);
+}
+
+.down{
+    left:50%;
+}
+
+.down:hover{
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.vote-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+  }

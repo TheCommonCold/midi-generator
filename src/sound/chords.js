@@ -21,7 +21,7 @@ export function createRandomProgression(){
     let chords = []
     let lengths = constructRythm(8)
     for(let i = 0; i<lengths.length; i++){
-        chords.push(RandomChord(0,'major',2,5))
+        chords.push(RandomChord(0,'major',3,5))
     }
     const scale = Math.floor(Math.random() * 12)
 
@@ -37,9 +37,9 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     const mode = scale.mode[randomNote]
     let rootNote = scale.notes[randomNote]
 
-    let chord = randomVoicing(mode, numberOfNotes,scale.notes,jazziness)
+    let chord = randomVoicing(rootNote,mode, numberOfNotes,scale.notes,jazziness)
 
-    let transposed = chord.map(x => x + rootNote +36 + (12*octave))
+    let transposed = chord.map(x => x + 36 + (12*octave))
     if(Math.random()-(1/4)>rootNote/12)
         rootNote+=12
     // transposed.push(rootNote+24)
@@ -48,12 +48,13 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     return transposed
 }
 
-function randomVoicing(mode,numberOfNotes, scale, jazziness=5){
+function randomVoicing(root,mode,numberOfNotes, scale, jazziness=5){
     let chord = []
     for(let i = 0; i<numberOfNotes; i++){
         const choice = Math.floor(Math.random() * jazziness)
         let note = chords[mode][choice];
-        if (chord.includes(note) || !scale.includes(note))
+        note += root
+        if (chord.includes(note) || !scale.includes(note%12))
         {
             i--
             continue

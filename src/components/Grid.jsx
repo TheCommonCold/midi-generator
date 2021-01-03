@@ -24,7 +24,7 @@ function Grid(props) {
                         row.map(progression => {
                             return (
                             <Col>
-                            <MidiDisplay progression={progression}/>
+                                <MidiDisplay progression={progression}/>
                             </Col>
                             )
                         })
