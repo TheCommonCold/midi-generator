@@ -1,0 +1,1 @@
+export const ADD_SPECIMAN = "ADD_SPECIMAN";
