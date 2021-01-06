@@ -56,11 +56,9 @@ function randomVoicing(root,mode,numberOfNotes, scale, jazziness=5, octave, disp
         let note = chords[mode][choice];
         note += root
         if(Math.random()<(((choice/(1+octave))/12) - dispersion)){
-            console.log('dispersed up')
             note+=12
         }
         if(Math.random()<(((note/2*(1+octave))/12) - dispersion) && choice!==0){
-            console.log('dispersed down')
             note-=12
         }
 

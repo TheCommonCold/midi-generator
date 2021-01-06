@@ -16,14 +16,14 @@ function DisplayNotes({notes}){
             for(let i = baseLine; i<=height; i++ ){
             if(chord.includes(i))
                 rows.push(
-                <div style={{height: (1/(height-baseLine)*100).toString()+'%', width:'100%', "background-color":'#c62828'}}>
+                <div key={j.toString()+i.toString()} style={{height: (1/(height-baseLine)*100).toString()+'%', width:'100%', "backgroundColor":'#c62828'}}>
                 </div>)
             else
                 rows.push(
-                <div style={{height: (1/(height-baseLine)*100).toString()+'%', width:'100%'}}>
+                <div key={j.toString()+i.toString()} style={{height: (1/(height-baseLine)*100).toString()+'%', width:'100%'}}>
                 </div>)
             }
-            cols.push(<div style={{height: '100%', width: (notes.rythm[j]/length*100).toString()+'%'}}>{rows.reverse()}</div>)
+            cols.push(<div key={j} style={{height: '100%', width: (notes.rythm[j]/length*100).toString()+'%'}}>{rows.reverse()}</div>)
         }
         setCols(cols)
       }, [notes]);
