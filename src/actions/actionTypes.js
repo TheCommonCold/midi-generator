@@ -1,1 +1,2 @@
 export const ADD_SPECIMAN = "ADD_SPECIMAN";
+export const SET_SPECIMAN_SCORE = "SET_SPECIMAN_SCORE";

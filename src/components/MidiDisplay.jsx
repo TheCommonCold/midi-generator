@@ -1,20 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Container, Row, Col, Button} from 'reactstrap'
 import {playProgression} from '../sound/player'
+import { useDispatch } from 'react-redux'
+
+import { setSpecimanScore} from '../actions/populationActions'
 
 
 function MidiDisplay(props){
-
-  const [score, setScore] = useState(props.progression.score)
+  const dispatch = useDispatch()
 
   const height = 60
 
   const increaseScore = () => {
-    setScore(score+1)
+    dispatch(setSpecimanScore({index: props.index ,score: props.progression.score+1}))
   }
 
   const decreaseScore = () => {
-    setScore(score-1)
+    dispatch(setSpecimanScore({index: props.index ,score: props.progression.score-1}))
   }
 
   const play = () => {
@@ -42,10 +44,10 @@ function MidiDisplay(props){
     }
     cols.push(<div style={{height: '100%', width: (props.progression.notes.rythm[j]/length*100).toString()+'%'}}>{rows.reverse()}</div>)
   }
-  return (<Container className='p-0'>
-      <Row className='w-100 m-0' style={{height:"200px"}}>
-          <div className='vote up' onClick={increaseScore}><div className='vote-text'>🡅</div></div>
-          <div className='vote down' onClick={decreaseScore}><div className='vote-text'>🡇</div></div>
+  return (<Container className='p-0 h-100'>
+      <Row className='w-100 m-0 h-100'>
+          {/* <div className='vote up' onClick={increaseScore}><div className='vote-text'>🡅</div></div>
+          <div className='vote down' onClick={decreaseScore}><div className='vote-text'>🡇</div></div> */}
           {cols}
       </Row>
       <Row>
@@ -53,7 +55,7 @@ function MidiDisplay(props){
           <Button className='w-100 p-0' onClick={play}>Play</Button>
         </Col>
         <Col sm={1}>
-        {score}
+        {props.progression.score}
         </Col>
       </Row>
   </Container>)
