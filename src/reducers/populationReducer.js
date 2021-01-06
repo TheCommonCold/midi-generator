@@ -1,4 +1,4 @@
-import { ADD_SPECIMAN, SET_SPECIMAN_SCORE } from "../actions/actionTypes";
+import { ADD_SPECIMAN, SET_SPECIMAN_SCORE, DELETE_POPULATION } from "../actions/actionTypes";
 
 const initialState = [] ;
 
@@ -9,6 +9,10 @@ const populationReducer = (state = initialState, action) => {
           ...state,
           action.payload.speciman
         ];
+      }
+
+      case DELETE_POPULATION: {
+        return [];
       }
 
       case SET_SPECIMAN_SCORE:{

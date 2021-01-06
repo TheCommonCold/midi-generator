@@ -17,11 +17,11 @@ const chords = {
 }
 
 
-export function createRandomProgression(){
+export function createRandomProgression(jazziness, numberOfNotes){
     let chords = []
     let lengths = constructRythm(8)
     for(let i = 0; i<lengths.length; i++){
-        chords.push(RandomChord(0,'major',3,5))
+        chords.push(RandomChord(0,'major',numberOfNotes,jazziness+3))
     }
     const scale = Math.floor(Math.random() * 12)
 
@@ -37,7 +37,7 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     const mode = scale.mode[randomNote]
     let rootNote = scale.notes[randomNote]
 
-    let chord = randomVoicing(rootNote,mode, numberOfNotes,scale.notes,jazziness)
+    let chord = randomVoicing(rootNote,mode, numberOfNotes,scale.notes,jazziness,octave)
 
     let transposed = chord.map(x => x + 36 + (12*octave))
     if(Math.random()-(1/4)>rootNote/12)
@@ -48,19 +48,29 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     return transposed
 }
 
-function randomVoicing(root,mode,numberOfNotes, scale, jazziness=5){
+function randomVoicing(root,mode,numberOfNotes, scale, jazziness=5, octave, dispersion = 0){
     let chord = []
+    let overload=0
     for(let i = 0; i<numberOfNotes; i++){
-        const choice = Math.floor(Math.random() * jazziness)
+        const choice = Math.floor(Math.random() * jazziness + Math.floor(overload/(jazziness*2)))
         let note = chords[mode][choice];
         note += root
+        if(Math.random()<(((choice/(1+octave))/12) - dispersion)){
+            console.log('dispersed up')
+            note+=12
+        }
+        if(Math.random()<(((note/2*(1+octave))/12) - dispersion) && choice!==0){
+            console.log('dispersed down')
+            note-=12
+        }
+
         if (chord.includes(note) || !scale.includes(note%12))
         {
+            overload++
             i--
             continue
         }
-        if(Math.random()<choice/24)
-            note+=12
+
         chord.push(note)
     }
     return chord
