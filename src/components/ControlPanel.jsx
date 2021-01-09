@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Row, Col} from 'reactstrap'
+import {Jumbotron, Container, Row, Col} from 'reactstrap'
 import { useDispatch } from 'react-redux'
 import {Button, TextField} from '@material-ui/core';
 
 import {createPopulation} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
+import NewGeneration from './NewGeneration'
 
 function ControlPanel() {
     const [generation, setGeneration] = useState(0)
@@ -12,7 +13,8 @@ function ControlPanel() {
     const [state, setState] = useState({
         populationSize: 16,
         jazziness: 2,
-        numberOfNotes: 3,
+        numberOfNotes: 1,
+        noteLengths: 4,
     })
     const dispatch = useDispatch()
 
@@ -26,7 +28,7 @@ function ControlPanel() {
     const restart = () => {
         setGeneration(0)
         dispatch(deletePopulation())
-        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes).map(x => dispatch(addSpeciman(x)))
+        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, state.noteLengths).map(x => dispatch(addSpeciman(x)))
     }
 
     useEffect(() => {
@@ -36,21 +38,25 @@ function ControlPanel() {
 
 
   return (
-    <Container>
-        <Row>
-            <h2>Generation: {generation}</h2>
-        </Row>
-        <Row className='p-5'>
-            <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
-            <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
-            <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col>
-        </Row>
-        <Row>
-            <Button variant="contained" color="primary" onClick={restart}>
-                Restart
-            </Button>
-        </Row>
-    </Container>
+    <Jumbotron>
+        <Container>
+            <Row>
+                <h2>Generation: {generation}</h2>
+            </Row>
+            <Row className='p-5'>
+                <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
+                <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
+                <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col>
+                <Col><TextField name='noteLengths' label="Note lengths" type="number" onChange={handleChange} value={state.noteLengths}/></Col>
+            </Row>
+            <Row>
+                <Button variant="contained" color="primary" onClick={restart}>
+                    Restart
+                </Button>
+                <NewGeneration/>
+            </Row>
+        </Container>
+    </Jumbotron>
   );
 }
 

@@ -1,3 +1,4 @@
+import { calcGenome } from '../genetic/genome'
 import {constructRythm} from './rythm'
 
 const maj = 'major'
@@ -17,17 +18,34 @@ const chords = {
 }
 
 
-export function createRandomProgression(jazziness, numberOfNotes){
+export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0){
+    let octave = 0
     let chords = []
-    let lengths = constructRythm(8)
+    let roots = []
+    let lengths = constructRythm(8, noteLengths)
     for(let i = 0; i<lengths.length; i++){
-        chords.push(RandomChord(0,'major',numberOfNotes,jazziness+3))
+        const chord = RandomChord(octave,'major',numberOfNotes-1,jazziness+3)
+        roots.push(chord.root)
+        chords.push(chord.chord)
     }
     const scale = Math.floor(Math.random() * 12)
 
     chords = chords.map(chord => chord.map(note => note + scale))
+    roots = roots.map(note => note + scale)
 
-    return {chords, rythm: lengths}
+    const length = lengths.reduce(function(previousValue, currentValue, index, array) {
+        return previousValue + currentValue;
+      });
+
+    if(numberOfNotes===1)
+        chords = chords.map((_, index) => [...chords[index],roots[index]])
+    
+    const genome = calcGenome(chords, lengths, scale)
+
+    if(numberOfNotes>1)
+        chords = chords.map((_, index) => [...chords[index],roots[index]])
+
+    return {notes: chords, rythm: lengths, genome: genome }
 }
 
 export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
@@ -37,15 +55,18 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     const mode = scale.mode[randomNote]
     let rootNote = scale.notes[randomNote]
 
+    if(numberOfNotes===0){
+        rootNote+=12*3
+        return {root: rootNote, chord: []}
+    }
     let chord = randomVoicing(rootNote,mode, numberOfNotes,scale.notes,jazziness,octave)
 
-    let transposed = chord.map(x => x + 36 + (12*octave))
+    let transposed = chord.map(x => x + 12*(3+octave))
     if(Math.random()-(1/4)>rootNote/12)
         rootNote+=12
-    // transposed.push(rootNote+24)
-    transposed.push(rootNote+12)
 
-    return transposed
+
+    return {chord: transposed, root: rootNote+12}
 }
 
 function randomVoicing(root,mode,numberOfNotes, scale, jazziness=5, octave, dispersion = 0){

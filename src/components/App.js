@@ -1,7 +1,14 @@
 import Grid from './Grid'
 import ControlPanel from './ControlPanel'
+import Test from './Test'
 import '../style/App.css';
 import {Jumbotron} from 'reactstrap'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -22,12 +29,17 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Jumbotron>
-        <ControlPanel/>
-      </Jumbotron>
-      <Jumbotron>
-        <Grid/>
-      </Jumbotron>
+      <ControlPanel/>
+      <Router>
+        <Switch>
+          <Route path="/test">
+            <Test />
+          </Route>
+          <Route path="/">
+            <Grid />
+          </Route>
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }

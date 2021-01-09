@@ -16,12 +16,12 @@ function MidiDisplay(props){
   }
 
   const play = () => {
-    playProgression(props.progression.notes.chords, props.progression.notes.rythm)
+    playProgression(props.progression.notes, props.progression.rythm)
   }
 
   return (<Container className='p-0 h-100'>
       <Row className='w-100 m-0 h-75'>
-          <DisplayNotes notes={props.progression.notes}/>
+          <DisplayNotes color='#c62828' notes={props.progression} />
           <div className='vote' onClick={play}><PlayCircleOutlineIcon style={{ fontSize: 80 }} className='vote-text'/></div>
       </Row>
       <Row>
