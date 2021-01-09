@@ -1,5 +1,6 @@
 import {createRandomProgression} from '../sound/chords'
 import { calcGenome } from './genome'
+import { Note } from '../sound/note'
 
 export function createPopulation(size,jazziness, numberOfNotes, noteLengths) {
     const population = []
@@ -11,13 +12,17 @@ export function createPopulation(size,jazziness, numberOfNotes, noteLengths) {
 }
 
 export function newGeneration(population){
+    let newPopulation = []
+    for(let i = 0; i<population.length; i++){
+        const roulette = createRoulette(population.map(x => x.score))
 
-    const roulette = createRoulette(population.map(x => x.score))
-
-    const spec1 = population[pickSpeciman(roulette)]
-    const spec2 = population[pickSpeciman(roulette)]
-
-    const crossed = cross(spec1,spec2)
+        const spec1 = population[pickSpeciman(roulette)]
+        const spec2 = population[pickSpeciman(roulette)]
+    
+        const crossed = cross(spec1,spec2)
+        newPopulation.push(crossed)
+    }
+    return newPopulation
 }
 
 function createRoulette(scores){
@@ -47,33 +52,34 @@ export function cross(prog1, prog2){
 
     const newMelody = crossMelodies(prog1, prog2, newRythm)
 
-    return {notes: newMelody, rythm: newRythm, genome: calcGenome(newMelody, newRythm, newScale) ,score:50}
+    let notes = [] 
+    let beginning = 0
+    for(let i = 0; i<newRythm.length; i++){
+        newMelody.map(x => notes.push(new Note(x,beginning, newRythm[i])))
+        beginning+=newRythm[i]
+    }
+
+    return {notes: newMelody, rythm: newRythm, genome: calcGenome(newMelody, newRythm, newScale) ,score:50, notes2: notes}
 }
 
 function crossMelodies(prog1, prog2, newRythm){
-    let timeline1 = 0
-    let timeline2 = 0
     let newTimeline = 0
-    let i1 = 0
-    let i2 = 0
     let chords = []
     for(let i=0; i<newRythm.length; i++){
         const window=[newTimeline, newTimeline+newRythm[i]]
 
         let candidates = []
-        while(window[1]>=timeline1 && i1<prog1.rythm.length){
-            const notes = [...new Set(prog1.notes[i1].flat())]
-            candidates.push(notes)
-            timeline1+=prog1.rythm[i1]
-            i1++
-        }
 
-        while(window[1]>=timeline2 && i2<prog2.rythm.length){
-            const notes = [...new Set(prog2.notes[i2].flat())]
-            candidates.push(notes)
-            timeline2+=prog2.rythm[i2]
-            i2++
-        }
+        prog1.notes2.map(note => {
+            if(note.existsInWindow(window))
+                candidates.push(note.hight)
+        })
+
+        prog2.notes2.map(note => {
+            if(note.existsInWindow(window))
+                candidates.push(note.hight)
+        })
+
         newTimeline += newRythm[i]
 
         candidates =  [...new Set(candidates.flat())]
@@ -94,7 +100,7 @@ function crossRythms(rythm1, rythm2, length){
     let i2 = 0
     let i = 0
     while(newTimeline<length){
-        let choice
+        let choice = []
         if(Math.random()<0.5){
             choice=0
         }else {

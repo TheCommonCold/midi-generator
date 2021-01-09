@@ -18,13 +18,13 @@ export function constructRythm(length, window){
 
         if(currentLength+rythms[randomNumber]-diff>length){
             diff = length - currentLength
+            rythmStructure.push({rythm: diff,beginning: currentLength})
             currentLength+=diff
-            rythmStructure.push(diff)
             return rythmStructure
         }
 
+        rythmStructure.push({rythm: rythms[randomNumber]-diff,beginning: currentLength})
         currentLength+=rythms[randomNumber]-diff
-        rythmStructure.push(rythms[randomNumber]-diff)
     }
 
     return rythmStructure

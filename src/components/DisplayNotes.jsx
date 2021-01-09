@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {Row} from 'reactstrap'
 
 export function DisplayNotes({notes}){
-    console.log(notes)
     const [cols, setCols] = useState([])
     useEffect(() => {
         const height = Math.max(...notes.notes.map(chord => Math.max(...chord)))
