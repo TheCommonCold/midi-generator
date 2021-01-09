@@ -4,6 +4,7 @@ import {Jumbotron, Container, Row, Col} from 'reactstrap'
 import { useSelector } from 'react-redux'
 
 import { cross } from '../genetic/population'
+import { Note } from '../sound/note'
 
 function Test() {
     const population = useSelector(state => {
@@ -13,9 +14,11 @@ function Test() {
     if(population.length<=2){
         return null;
     }
+    // population[0].notes = population[0].notes.map(x=>x.map(x=>50))
+    // population[0].notes2 = population[0].notes2.map(x=> x= new Note(50, x.start, x.duration))
+    console.log(population[0].notes2)
     const child = cross(population[0], population[1])
     child.score=8
-    console.log(child)
 
   return (
     <Jumbotron>
