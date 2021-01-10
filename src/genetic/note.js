@@ -26,7 +26,7 @@ export class Note{
     }
 
     existsInWindow(window){
-        if((window[0]>=this.start && window[0]<=this.end)||(window[1]>=this.start && window[1]<=this.end)){
+        if((window[0]>this.start && window[0]<this.end)||(window[1]>this.start && window[1]<=this.end)){
             return true
         }
         return false

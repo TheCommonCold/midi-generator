@@ -25,6 +25,10 @@ function ControlPanel() {
         });
     }
 
+    const updateGeneration = () => {
+        setGeneration(generation+1)
+    }
+
     const restart = () => {
         setGeneration(0)
         dispatch(deletePopulation())
@@ -45,15 +49,15 @@ function ControlPanel() {
             </Row>
             <Row className='p-5'>
                 <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
-                <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
-                <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col>
+                {/* <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
+                <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> */}
                 <Col><TextField name='noteLengths' label="Note lengths" type="number" onChange={handleChange} value={state.noteLengths}/></Col>
             </Row>
             <Row>
                 <Button variant="contained" color="primary" onClick={restart}>
                     Restart
                 </Button>
-                <NewGeneration/>
+                <NewGeneration updateGeneration={updateGeneration}/>
             </Row>
         </Container>
     </Jumbotron>

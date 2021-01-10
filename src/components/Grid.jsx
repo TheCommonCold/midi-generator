@@ -9,7 +9,6 @@ function Grid() {
         return state.population
     })
 
-
     const [populationFormatted, setPopulationFormatted] = useState([])
     useEffect(() => {
         let arr = [...population];

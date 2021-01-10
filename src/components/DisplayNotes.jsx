@@ -4,10 +4,10 @@ import {Row} from 'reactstrap'
 export function DisplayNotes({notes}){
     const [cols, setCols] = useState([])
     useEffect(() => {
-        // const height = Math.max(...notes.notes.map(chord => Math.max(...chord)))
-        // const baseLine = Math.min(...notes.notes.map(chord => Math.min(...chord)))
-        const height = 60
-        const baseLine = 24
+        const height = Math.max(...notes.notes.map(chord => Math.max(...chord)))
+        const baseLine = Math.min(...notes.notes.map(chord => Math.min(...chord)))
+        // const height = 60
+        // const baseLine = 24
         let cols=[]
         let length = 0
         for(let j = 0; j<notes.rythm.length; j++ ){

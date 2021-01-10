@@ -31,7 +31,6 @@ export function RandomChord(octave,scaleType,numberOfNotes, jazziness){
     if(Math.random()-(1/4)>rootNote/12)
         rootNote+=12
 
-
     return {chord: transposed, root: rootNote+12}
 }
 
@@ -55,7 +54,7 @@ function randomVoicing(root,mode,numberOfNotes, scale, jazziness=5, octave, disp
             i--
             continue
         }
-
+        overload=0
         chord.push(note)
     }
     return chord

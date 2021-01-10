@@ -16,8 +16,11 @@ export function newGeneration(population){
     for(let i = 0; i<population.length; i++){
         const roulette = createRoulette(population.map(x => x.score))
 
-        const spec1 = population[pickSpeciman(roulette)]
-        const spec2 = population[pickSpeciman(roulette)]
+        const pick1 = pickSpeciman(roulette)
+        const pick2 = pickSpeciman(roulette)
+
+        const spec1 = population[pick1]
+        const spec2 = population[pick2]
     
         const crossed = cross(spec1,spec2)
         newPopulation.push(crossed)
@@ -48,18 +51,18 @@ export function cross(prog1, prog2){
 
     const newScale = Math.floor(Math.random() * (max - min)) + min;
 
-    prog1 = prog1.transpose(newScale)
-    prog2 = prog2.transpose(newScale)
+    const prog1Transposed = prog1.transpose(newScale)
+    const prog2Transposed = prog2.transpose(newScale)
 
     const length = 8
-    const newRythm = crossRythms(prog1.notes2, prog2.notes2, length)
+    const newRythm = crossRythms(prog1Transposed.notes2, prog2Transposed.notes2, length)
 
-    const newMelody = crossMelodies(prog1, prog2, newRythm)
+    const newMelody = crossMelodies(prog1Transposed, prog2Transposed, newRythm)
 
     let notes = [] 
     let beginning = 0
     for(let i = 0; i<newRythm.length; i++){
-        notes.push(new Note(newMelody[i],beginning, newRythm[i]))
+        notes.push(new Note(newMelody[i][0],beginning, newRythm[i]))
         beginning+=newRythm[i]
     }
     const genome = new Genome(newMelody, newRythm, newScale)
@@ -77,12 +80,14 @@ function crossMelodies(prog1, prog2, newRythm){
 
         prog1.notes2.map(note => {
             if(note.existsInWindow(window))
-                candidates.push(note.hight)
+                return candidates.push(note.hight)
+            return null
         })
 
         prog2.notes2.map(note => {
             if(note.existsInWindow(window))
-                candidates.push(note.hight)
+                return candidates.push(note.hight)
+            return null
         })
 
         newTimeline += newRythm[i]
@@ -109,7 +114,7 @@ function crossRythms(notes1, notes2, length){
                 timeline = ends[choice][i]
                 break;
             }
-            if(i==ends[choice].length-1){
+            if(i===ends[choice].length-1){
                 newRythm.push(ends[choice][i]-timeline)
                 timeline = ends[choice][i]
             }

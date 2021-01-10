@@ -13,7 +13,7 @@ export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0)
     let lengths = constructRythm(8, noteLengths)
     const scale = Math.floor(Math.random() * 12)
     for(let i = 0; i<lengths.length; i++){
-        const chord = RandomChord(octave,'major',numberOfNotes-1,jazziness+3)
+        const chord = RandomChord(octave,'major',numberOfNotes-1,jazziness)
         roots.push(chord.root+scale)
         chords.push(chord.chord.map(x=>x+scale))
         chord.chord.map(x => notes.push(new Note(x+scale,lengths[i].beginning, lengths[i].rythm)))
