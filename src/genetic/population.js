@@ -1,13 +1,12 @@
-import {createRandomProgression} from '../sound/chords'
-import { calcGenome } from './genome'
-import { Note } from '../sound/note'
-//import {transpose} from '../sound/progression'
+import {createRandomProgression, Progression} from './progression'
+import { Genome } from './genome'
+import { Note } from './note'
 
 export function createPopulation(size,jazziness, numberOfNotes, noteLengths) {
     const population = []
 
     for(let i =0; i<size; i++){
-        population.push({...createRandomProgression(jazziness, numberOfNotes, noteLengths),score: 10})
+        population.push(createRandomProgression(jazziness, numberOfNotes, noteLengths))
     }
     return population
 }
@@ -46,9 +45,11 @@ function pickSpeciman(roulette){
 export function cross(prog1, prog2){
     const max = Math.max(prog1.genome.scale, prog2.genome.scale)
     const min = Math.min(prog1.genome.scale, prog2.genome.scale)
+
     const newScale = Math.floor(Math.random() * (max - min)) + min;
 
-    //transpose()
+    prog1 = prog1.transpose(newScale)
+    prog2 = prog2.transpose(newScale)
 
     const length = 8
     const newRythm = crossRythms(prog1.notes2, prog2.notes2, length)
@@ -58,11 +59,12 @@ export function cross(prog1, prog2){
     let notes = [] 
     let beginning = 0
     for(let i = 0; i<newRythm.length; i++){
-        newMelody.map(x => notes.push(new Note(x,beginning, newRythm[i])))
+        notes.push(new Note(newMelody[i],beginning, newRythm[i]))
         beginning+=newRythm[i]
     }
-
-    return {notes: newMelody, rythm: newRythm, genome: calcGenome(newMelody, newRythm, newScale) ,score:10, notes2: notes}
+    const genome = new Genome(newMelody, newRythm, newScale)
+    const progression  = new Progression({notes: newMelody, rythm: newRythm, genome: genome,  notes2: notes})
+    return progression
 }
 
 function crossMelodies(prog1, prog2, newRythm){
