@@ -2,14 +2,14 @@ const maj = 'major'
 const min = 'minor'
 
 
-const scales = {
+export const scales = {
     major: {
         notes: [0,2,4,5,7,9,11],
         mode: [maj,min, min, maj, maj, min, min]
     }
 }
 
-const chords = {
+export const chords = {
     major:[0,4,7,2,11,6,9,1,8,3,10,5],
     minor:[0,3,7,2,10,5,9,4,11,6,8,1]
 }

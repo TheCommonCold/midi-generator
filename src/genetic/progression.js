@@ -26,7 +26,9 @@ export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0)
 }
 
 export class Progression{
-    constructor({notes, rythm, genome, notes2, score= 10}){
+    constructor({notes, rythm, genome, notes2, score= 10, roots, chords}){
+        this.roots = roots
+        this.chords = chords
         this.notes = notes
         this.rythm = rythm
         this.genome = genome
@@ -46,6 +48,9 @@ export class Progression{
         const diff = scale - this.genome.scale
         const genome = new Genome(this.notes, this.rythm, this.genome.scale + diff)
         const notes = this.notes.map(notes => notes.map(note => note + diff))
+
+        // const roots = this.roots.map(note => new Note(note.hight + diff, note.start, note.duration))
+        // const chords = this.chords.map(notes => notes.map(note => new Note(note.hight + diff, note.start, note.duration)))
         const notes2 = this.notes2.map(note => new Note(note.hight + diff, note.start, note.duration))
         return new Progression({...this,genome, notes, notes2 })
     }

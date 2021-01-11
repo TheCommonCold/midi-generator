@@ -30,7 +30,12 @@ function MidiDisplay({progression, index}){
             Score
           </small>
         </Col>
-        <Col>
+        <Col sm={1} className='pl-2'>
+          <small>
+            {progression.score}
+          </small>
+        </Col>
+        <Col className='pl-2'>
         <Slider
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"

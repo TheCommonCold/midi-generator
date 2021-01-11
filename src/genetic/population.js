@@ -1,6 +1,7 @@
 import {createRandomProgression, Progression} from './progression'
 import { Genome } from './genome'
 import { Note } from './note'
+import {scales, chords} from './chords'
 
 export function createPopulation(size,jazziness, numberOfNotes, noteLengths) {
     const population = []
@@ -57,12 +58,16 @@ export function cross(prog1, prog2){
     const length = 8
     const newRythm = crossRythms(prog1Transposed.notes2, prog2Transposed.notes2, length)
 
-    const newMelody = crossMelodies(prog1Transposed, prog2Transposed, newRythm)
+
+    getRootNote(prog1Transposed, prog2Transposed)
+    const newMelody = crossMelodies(prog1Transposed, prog2Transposed, newRythm, newScale, prog1.notes[0].length-1,3)
 
     let notes = [] 
     let beginning = 0
     for(let i = 0; i<newRythm.length; i++){
-        notes.push(new Note(newMelody[i][0],beginning, newRythm[i]))
+        newMelody[i].forEach(note => { // eslint-disable-line
+            notes.push(new Note(note, beginning, newRythm[i]))
+        });
         beginning+=newRythm[i]
     }
     const genome = new Genome(newMelody, newRythm, newScale)
@@ -70,35 +75,86 @@ export function cross(prog1, prog2){
     return progression
 }
 
-function crossMelodies(prog1, prog2, newRythm){
+function getRootNote(prog1){
+    const roots = prog1.notes.map(notes => notes[notes.length-1])
+    const chords = prog1.notes.map(notes => notes.slice(0,notes.length-1)).flat()
+    let rootNotes = []
+    let chordNotes = []
+    for(let i = 0; i < prog1.notes2.length; i++){
+        if(roots.includes(prog1.notes2[i].hight)){
+            rootNotes.push(prog1.notes2[i])
+        }
+        if(chords.includes(prog1.notes2[i].hight)){
+            chordNotes.push(prog1.notes2[i])
+        }
+    }
+    return [rootNotes,chordNotes]
+}
+
+function crossMelodies(notes1, notes2, newRythm, originalScale, numberOfNotes, jazziness){
     let newTimeline = 0
-    let chords = []
+    let roots = []
+    const [rootNotes1, chordNotes1] = getRootNote(notes1)
+    const [rootNotes2, chordNotes2] = getRootNote(notes2)
     for(let i=0; i<newRythm.length; i++){
         const window=[newTimeline, newTimeline+newRythm[i]]
 
         let candidates = []
-
-        prog1.notes2.map(note => {
+        rootNotes1.map(note => {
             if(note.existsInWindow(window))
                 return candidates.push(note.hight)
             return null
         })
 
-        prog2.notes2.map(note => {
+        rootNotes2.map(note => {
             if(note.existsInWindow(window))
                 return candidates.push(note.hight)
             return null
         })
-
-        newTimeline += newRythm[i]
 
         candidates =  [...new Set(candidates.flat())]
 
         const choice = Math.floor(Math.random()*candidates.length)
+        const root = candidates[choice]
 
-        chords.push([candidates[choice]])
+        candidates = []
+        chordNotes1.map(note => {
+            if(note.existsInWindow(window))
+                return candidates.push(note.hight)
+            return null
+        })
+
+        chordNotes2.map(note => {
+            if(note.existsInWindow(window))
+                return candidates.push(note.hight)
+            return null
+        })
+
+        candidates =  [...new Set(candidates.flat())]
+
+        const scale = scales['major']
+        const transposedRoot = (root-originalScale)%12
+        const mode = scale.mode[scale.notes.indexOf(transposedRoot)]
+
+        let chord = []
+        let overload=0
+        for(let j = 0 ; j<numberOfNotes; j++ ){
+            //const choice = Math.floor(Math.random() * jazziness + Math.floor(overload/(jazziness*2)))
+            const choice = candidates[Math.floor(Math.random()*candidates.length)]
+            if (chord.includes(choice) || !chords[mode].slice(0,jazziness + Math.floor(overload/(jazziness*2))).includes(((choice-root)%12)))
+            {
+                overload++
+                j--
+                continue
+            }
+            overload=0
+            chord.push(choice)
+        }
+        chord.push(root)
+        newTimeline += newRythm[i]
+        roots.push(chord)
     }
-    return chords
+    return roots
 }
 
 function crossRythms(notes1, notes2, length){

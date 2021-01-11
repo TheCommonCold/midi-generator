@@ -11,10 +11,10 @@ function ControlPanel() {
     const [generation, setGeneration] = useState(0)
 
     const [state, setState] = useState({
-        populationSize: 16,
-        jazziness: 2,
-        numberOfNotes: 1,
-        noteLengths: 4,
+        populationSize: 8,
+        jazziness: 4,
+        numberOfNotes: 3,
+        noteLengths: 12,
     })
     const dispatch = useDispatch()
 
@@ -49,8 +49,8 @@ function ControlPanel() {
             </Row>
             <Row className='p-5'>
                 <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
-                {/* <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
-                <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> */}
+                <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
+                <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> 
                 <Col><TextField name='noteLengths' label="Note lengths" type="number" onChange={handleChange} value={state.noteLengths}/></Col>
             </Row>
             <Row>
