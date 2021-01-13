@@ -21,7 +21,7 @@ function MidiDisplay({progression, index}){
   return (
   <Container className='p-0 h-100'>
       <Row className='w-100 m-0 h-75'>
-          <DisplayNotes color='#c62828' notes={progression} />
+          <DisplayNotes color='#c62828' progression={progression} />
           <div className='vote' onClick={play}><PlayCircleOutlineIcon style={{ fontSize: 80 }} className='vote-text'/></div>
       </Row>
       <Row>

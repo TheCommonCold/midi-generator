@@ -1,6 +1,10 @@
 export class Genome{
     constructor(chords, rythm, scale){
-        const notes = [...new Set(chords.flat())]
+        let chordNotes = chords.map(chord => chord.chord)
+        if(!chordNotes.flat()){
+            chordNotes = chords.map(chord => chord.root)
+        }
+        const notes = [...new Set(chordNotes.flat())]
         let mean = notes.reduce((a, b) => a + b) / notes.length;
         const length = rythm.reduce((a, b) => a + b);
         
