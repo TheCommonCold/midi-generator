@@ -4,7 +4,7 @@ export class Genome{
         if(!chordNotes.flat()){
             chordNotes = chords.map(chord => chord.root)
         }
-        const notes = [...new Set(chordNotes.flat())]
+        //const notes = [...new Set(chordNotes.flat())]
         //let mean = notes.reduce((a, b) => a + b) / notes.length;
         const length = rythm.reduce((a, b) => a + b);
         

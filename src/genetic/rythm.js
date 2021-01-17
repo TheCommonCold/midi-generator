@@ -10,7 +10,6 @@ export function constructRythm(length, window){
 
     const max = Math.min(rythms.length-1 + window,rythms.length-1)
     const min = Math.max(window,0)
-    console.log(min,max)
     while(currentLength<length){
         let diff = 0 ;
         let randomNumber = Math.floor(Math.random() *  (max-min))+min 

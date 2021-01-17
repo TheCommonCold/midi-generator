@@ -11,9 +11,9 @@ function ControlPanel() {
     const [generation, setGeneration] = useState(0)
 
     const [state, setState] = useState({
-        populationSize: 1,
+        populationSize: 8,
         jazziness: 4,
-        numberOfNotes: 1,
+        numberOfNotes: 3,
         noteLengths: 12,
     })
     const dispatch = useDispatch()
