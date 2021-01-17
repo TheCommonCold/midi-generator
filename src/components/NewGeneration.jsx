@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { newGeneration} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
 
-function NewGeneration({updateGeneration}){
+function NewGeneration({updateGeneration, params}){
   const dispatch = useDispatch()
   
     const population = useSelector(state => {
@@ -15,7 +15,7 @@ function NewGeneration({updateGeneration}){
 
     const nextGen = () => {
         dispatch(deletePopulation())
-        newGeneration(population).map(x => dispatch(addSpeciman(x)))
+        newGeneration(population, params.jazziness, params.noteLengths).map(x => dispatch(addSpeciman(x)))
         updateGeneration()
     }
 

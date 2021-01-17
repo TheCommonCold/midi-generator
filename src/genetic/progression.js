@@ -1,8 +1,10 @@
 import { Genome } from './genome'
-import {constructRythm} from './rythm'
+import {constructRythm, rythms} from './rythm'
 import { Note } from './note'
 import { RandomChord } from './chords'
 import { synth } from './synth'
+import {constructVoicing, buildNotes} from './population'
+import {scales, chords} from './chords'
 import * as Tone from 'tone'
 
 export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0){
@@ -45,5 +47,97 @@ export class Progression{
         const notes = this.notes.map(chord => { return {chord: chord.chord.map(x=>new Note(x.hight+diff, x.start, x.duration)), root: new Note(chord.root.hight+diff, chord.root.start, chord.root.duration)}})
         const genome = new Genome(notes, this.rythm, this.genome.scale + diff)
         return new Progression({...this,genome, notes })
+    }
+
+    mutate(jazziness, noteLengths){
+        let newProgression = this.mutateScale()
+        newProgression = this.mutateRythm(0.1,jazziness, noteLengths)
+        return newProgression
+    }
+
+    mutateMelody(){
+        
+    }
+
+    mutateScale(){
+        const newScale = Math.floor(Math.random()*3)-1+this.genome.scale
+        return this.transpose(newScale)
+    }
+
+    mutateRythm(p,jazziness, window){
+        window=window-rythms.length+1
+        let temp
+        const [tempNewRythm, tempNotes] = this.joinChord(p,jazziness)
+        temp = new Progression({...this, notes: tempNotes, rythm: tempNewRythm })
+        const [newRythm, notes] = temp.breakChord(p,jazziness, window)
+        const genome = new Genome(notes, newRythm, this.genome.scale)
+        return new Progression({...this,genome, notes, rythm: newRythm })
+    }
+
+    breakChord(p,jazziness, window){
+        let newRythm = []
+        let notes = []
+        let beginning = 0
+        const max = Math.min(rythms.length-1 + window,rythms.length-1)
+        const min = Math.max(window,0)
+        for(let i = 0; i<this.rythm.length; i++){
+            let avaibleRythms = []
+            rythms.forEach((x,index) => {
+                if(x<this.rythm[i]&&index<max&&index>=min)
+                    avaibleRythms.push(x)
+            })
+            if(Math.random()<p && avaibleRythms.length>0){
+                const choice = avaibleRythms[Math.floor(Math.random()*avaibleRythms.length)]
+
+                const tmp = RandomChord(0,'major',this.notes[0].chord.length,jazziness)
+                const root = new Note(tmp.root+this.genome.scale, beginning, this.rythm[i])
+                const chord = tmp.chord.map(x=>x+this.genome.scale)
+                
+                if(Math.round(Math.random())<=2){
+                    notes.push({
+                        chord: this.notes[i].chord.map(note => new Note(note.hight,beginning,choice)), 
+                        root: new Note(this.notes[i].root.hight, beginning, choice)})
+                    notes.push({
+                        chord: chord.map(note => new Note(note,beginning+choice,this.rythm[i]-choice)), 
+                        root: new Note(root.hight, beginning+choice, this.rythm[i]-choice)})
+                    newRythm.push(this.rythm[i]-choice)
+                    newRythm.push(choice)
+                    }else{
+                    notes.push({chord: chord.map(note => new Note(note,beginning,choice)), root: new Note(root.hight, beginning, choice)})
+                    notes.push({chord: this.notes[i].chord.map(note => new Note(note.hight,beginning+choice,this.rythm[i]-choice)), root: new Note(this.notes[i].root.hight, beginning+choice, this.rythm[i]-choice)})
+                    newRythm.push(choice)
+                    newRythm.push(this.rythm[i]-choice)
+                }
+
+                beginning+=this.rythm[i]
+                continue
+            }
+            newRythm.push(this.rythm[i])
+            beginning+=this.rythm[i]
+            notes.push(this.notes[i])
+        }
+        return [newRythm, notes]
+    }
+
+    joinChord(p,jazziness) {
+        let newRythm = []
+        let notes = []
+        let beginning = 0
+        for(let i = 0; i<this.rythm.length; i++){
+            if(Math.random()<p && i<this.rythm.length-1){
+                const chordsToJoin = [...this.notes[i].chord, ...this.notes[i+1].chord]
+                const root = this.notes[i+Math.round(Math.random())].root
+                const chord = constructVoicing(chordsToJoin, root, this.genome.scale,jazziness,this.notes[i].chord.length)
+                notes.push({chord: chord.map(note => new Note(note,beginning,this.rythm[i]+this.rythm[i+1])), root: new Note(root.hight, beginning, this.rythm[i]+this.rythm[i+1])})
+                newRythm.push(this.rythm[i]+this.rythm[i+1])
+                beginning+=this.rythm[i]+this.rythm[i+1]
+                i++
+                continue
+            }
+            newRythm.push(this.rythm[i])
+            beginning+=this.rythm[i]
+            notes.push(this.notes[i])
+        }
+        return [newRythm, notes]
     }
 }

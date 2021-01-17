@@ -11,9 +11,9 @@ function ControlPanel() {
     const [generation, setGeneration] = useState(0)
 
     const [state, setState] = useState({
-        populationSize: 8,
+        populationSize: 1,
         jazziness: 4,
-        numberOfNotes: 3,
+        numberOfNotes: 1,
         noteLengths: 12,
     })
     const dispatch = useDispatch()
@@ -57,7 +57,7 @@ function ControlPanel() {
                 <Button variant="contained" color="primary" onClick={restart}>
                     Restart
                 </Button>
-                <NewGeneration updateGeneration={updateGeneration}/>
+                <NewGeneration updateGeneration={updateGeneration} params={state}/>
             </Row>
         </Container>
     </Jumbotron>

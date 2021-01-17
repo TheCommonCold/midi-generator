@@ -12,7 +12,7 @@ export function createPopulation(size,jazziness, numberOfNotes, noteLengths) {
     return population
 }
 
-export function newGeneration(population){
+export function newGeneration(population, jazziness, noteLengths){
     let newPopulation = []
     for(let i = 0; i<population.length; i++){
         const roulette = createRoulette(population.map(x => x.score))
@@ -23,8 +23,9 @@ export function newGeneration(population){
         const spec1 = population[pick1]
         const spec2 = population[pick2]
     
-        const crossed = cross(spec1,spec2)
-        newPopulation.push(crossed)
+        const crossed = cross(spec1,spec2, jazziness)
+        const mutated = crossed.mutate(jazziness, noteLengths)
+        newPopulation.push(mutated)
     }
     return newPopulation
 }
@@ -46,7 +47,7 @@ function pickSpeciman(roulette){
     return i-1
 }
 
-export function cross(prog1, prog2){
+export function cross(prog1, prog2, jazziness){
     const max = Math.max(prog1.genome.scale, prog2.genome.scale)
     const min = Math.min(prog1.genome.scale, prog2.genome.scale)
 
@@ -58,16 +59,10 @@ export function cross(prog1, prog2){
     const length = 8
     const newRythm = crossRythms(prog1Transposed.getAllNotes(), prog2Transposed.getAllNotes(), length)
 
-    const newMelody = crossMelodies(prog1Transposed, prog2Transposed, newRythm, newScale, prog1.notes[0].chord.length,3)
+    const newMelody = crossMelodies(prog1Transposed, prog2Transposed, newRythm, newScale, prog1.notes[0].chord.length,jazziness)
 
-    let notes = [] 
-    let beginning = 0
-    for(let i = 0; i<newRythm.length; i++){
-        const chord = newMelody[i]
-        notes.push({chord: chord.chord.map(x=>new Note(x,beginning, newRythm[i])), root: new Note(chord.root,beginning, newRythm[i])}) // eslint-disable-line
-        beginning+=newRythm[i]
-    }
-        
+    const notes = buildNotes(newRythm, newMelody)
+
     const genome = new Genome(notes, newRythm, newScale)
     return new Progression({notes: notes, rythm: newRythm, genome: genome })
 }
@@ -94,7 +89,7 @@ function crossMelodies(notes1, notes2, newRythm, originalScale, numberOfNotes, j
         candidates =  [...new Set(candidates)]
 
         const choice = Math.floor(Math.random()*candidates.length)
-        const root = candidates[choice].hight
+        const root = candidates[choice]
 
         candidates = []
         notes2.notes.forEach(chord => {
@@ -114,29 +109,43 @@ function crossMelodies(notes1, notes2, newRythm, originalScale, numberOfNotes, j
         })
 
         candidates =  [...new Set(candidates)]
+        const chord = constructVoicing(candidates, root, originalScale, jazziness, numberOfNotes)
 
-        const scale = scales['major']
-        const transposedRoot = (root-originalScale)%12
-        const mode = scale.mode[scale.notes.indexOf(transposedRoot)]
-
-        let chord = []
-        let overload=0
-        for(let j = 0 ; j<numberOfNotes; j++ ){
-            //const choice = Math.floor(Math.random() * jazziness + Math.floor(overload/(jazziness*2)))
-            const choice = candidates[Math.floor(Math.random()*candidates.length)].hight
-            if (chord.includes(choice) || !chords[mode].slice(0,jazziness + Math.floor(overload/(jazziness*2))).includes(((choice-root)%12)))
-            {
-                overload++
-                j--
-                continue
-            }
-            overload=0
-            chord.push(choice)
-        }
-        newChords.push({chord,root})
+        newChords.push({chord,root:root.hight})
         newTimeline += newRythm[i]
     }
     return newChords
+}
+
+export function buildNotes(rythm, notes){
+    let newNotes = [] 
+    let beginning = 0
+    for(let i = 0; i<rythm.length; i++){
+        const chord = notes[i]
+        newNotes.push({chord: chord.chord.map(x=>new Note(x,beginning, rythm[i])), root: new Note(chord.root,beginning, rythm[i])}) // eslint-disable-line
+        beginning+=rythm[i]
+    }
+    return newNotes
+}
+
+export function constructVoicing(candidates, root, originalScale, jazziness, numberOfNotes){
+    const scale = scales['major']
+    const transposedRoot = (root.hight-originalScale)%12
+    const mode = scale.mode[scale.notes.indexOf(transposedRoot)]
+    let chord = []
+    let overload=0
+    for(let j = 0 ; j<numberOfNotes; j++ ){
+        const choice = candidates[Math.floor(Math.random()*candidates.length)].hight
+        if (chord.includes(choice) || !chords[mode].slice(0,jazziness + Math.floor(overload/(jazziness*2))).includes(((choice-root.hight)%12)))
+        {
+            overload++
+            j--
+            continue
+        }
+        overload=0
+        chord.push(choice)
+    }
+    return chord
 }
 
 function crossRythms(notes1, notes2, length){
