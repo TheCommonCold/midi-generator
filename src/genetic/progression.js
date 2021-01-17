@@ -2,7 +2,7 @@ import { Genome } from './genome'
 import {constructRythm, rythms} from './rythm'
 import { Note } from './note'
 import { RandomChord } from './chords'
-import { synth, getPlaying, setPlaying } from './synth'
+import { synth, getPlaying, setPlaying, getTempo } from './synth'
 import {constructVoicing} from './population'
 import * as Tone from 'tone'
 
@@ -39,12 +39,12 @@ export class Progression{
             const notes = this.getAllNotes()
             const now = Tone.now()
             for(let i = 0; i<notes.length; i++){
-              synth.triggerAttack(notes[i].note, now+notes[i].start);
-              synth.triggerRelease([notes[i].note],now+notes[i].end);
+              synth.triggerAttack(notes[i].note, now+(notes[i].start*120/getTempo()));
+              synth.triggerRelease([notes[i].note],now+(notes[i].end*120/getTempo()));
               if(notes[i].end>end)
                 end=notes[i].end
             }
-            setTimeout(function(){ setPlaying(0) }, end*1000);
+            setTimeout(function(){ setPlaying(0) }, end*1000*120/getTempo());
         }
       }
 

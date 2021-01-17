@@ -4,12 +4,22 @@ const gain = new Tone.Gain(0.2).toDestination();
 const filter = new Tone.Filter({frequency: 1000, type: "lowpass", rolloff: -12, Q: 0}).connect(gain);
 
 var isPlaying = 0
+var tempo = 120
+
 export function getPlaying(){
   return isPlaying
 }
 
 export function setPlaying(x) {
   isPlaying=x
+} 
+
+export function getTempo(){
+  return tempo
+}
+
+export function setTempo(x) {
+  tempo=x
 } 
 
 export const synth = new Tone.PolySynth(Tone.Synth,{

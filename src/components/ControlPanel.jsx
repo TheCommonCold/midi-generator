@@ -6,25 +6,33 @@ import {Button, TextField} from '@material-ui/core';
 import {createPopulation} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
 import NewGeneration from './NewGeneration'
+import { setTempo } from '../genetic/synth'
 
 function ControlPanel() {
     const [generation, setGeneration] = useState(0)
 
     const [state, setState] = useState({
-        populationSize: 8,
+        populationSize: 12,
         jazziness: 4,
         numberOfNotes: 3,
         noteLengths: 12,
-        tempo:120,
         progressionLength: 8
     })
+
+    const [tempo, settempo] = useState(120)
+
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value
-        });
+        if(e.target.name==='tempo'){
+            settempo(e.target.value)
+            setTempo(e.target.value)
+        }
+        else
+            setState({
+                ...state,
+                [e.target.name]: e.target.value
+            });
     }
 
     const updateGeneration = () => {
@@ -50,7 +58,7 @@ function ControlPanel() {
                 <h2>Generation: {generation}</h2>
             </Row>
             <Row className='p-5'>
-                {/* <Col><TextField name='tempo' label="Tempo" type="number" onChange={handleChange} value={state.tempo}/></Col> */}
+                <Col><TextField name='tempo' label="Tempo" type="number" onChange={handleChange} value={tempo}/></Col>
                 <Col><TextField name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
                 <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
                 <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
