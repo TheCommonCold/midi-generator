@@ -15,6 +15,8 @@ function ControlPanel() {
         jazziness: 4,
         numberOfNotes: 3,
         noteLengths: 12,
+        tempo:120,
+        progressionLength: 8
     })
     const dispatch = useDispatch()
 
@@ -32,7 +34,7 @@ function ControlPanel() {
     const restart = () => {
         setGeneration(0)
         dispatch(deletePopulation())
-        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, state.noteLengths).map(x => dispatch(addSpeciman(x)))
+        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, state.noteLengths, state.progressionLength).map(x => dispatch(addSpeciman(x)))
     }
 
     useEffect(() => {
@@ -48,6 +50,8 @@ function ControlPanel() {
                 <h2>Generation: {generation}</h2>
             </Row>
             <Row className='p-5'>
+                {/* <Col><TextField name='tempo' label="Tempo" type="number" onChange={handleChange} value={state.tempo}/></Col> */}
+                <Col><TextField name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
                 <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
                 <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
                 <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> 

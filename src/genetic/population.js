@@ -3,11 +3,11 @@ import { Genome } from './genome'
 import { Note } from './note'
 import {scales, chords} from './chords'
 
-export function createPopulation(size,jazziness, numberOfNotes, noteLengths) {
+export function createPopulation(size,jazziness, numberOfNotes, noteLengths, progressionLength) {
     const population = []
 
     for(let i =0; i<size; i++){
-        population.push(createRandomProgression(jazziness, numberOfNotes, noteLengths))
+        population.push(createRandomProgression(jazziness, numberOfNotes, noteLengths, progressionLength))
     }
     return population
 }

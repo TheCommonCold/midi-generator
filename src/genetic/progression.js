@@ -2,14 +2,14 @@ import { Genome } from './genome'
 import {constructRythm, rythms} from './rythm'
 import { Note } from './note'
 import { RandomChord } from './chords'
-import { synth } from './synth'
+import { synth, getPlaying, setPlaying } from './synth'
 import {constructVoicing} from './population'
 import * as Tone from 'tone'
 
-export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0){
+export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0, progressionLength){
     let octave = 0
     let notes = []
-    let lengths = constructRythm(8, noteLengths)
+    let lengths = constructRythm(progressionLength, noteLengths)
     const scale = Math.floor(Math.random() * 12)
     for(let i = 0; i<lengths.length; i++){
         const chord = RandomChord(octave,'major',numberOfNotes-1,jazziness)
@@ -33,11 +33,18 @@ export class Progression{
     }
 
     play(){
-        const notes = this.getAllNotes()
-        const now = Tone.now()
-        for(let i = 0; i<notes.length; i++){
-          synth.triggerAttack(notes[i].note, now+notes[i].start);
-          synth.triggerRelease([notes[i].note],now+notes[i].end);
+        if(!getPlaying()){
+            setPlaying(1)
+            let end = 0
+            const notes = this.getAllNotes()
+            const now = Tone.now()
+            for(let i = 0; i<notes.length; i++){
+              synth.triggerAttack(notes[i].note, now+notes[i].start);
+              synth.triggerRelease([notes[i].note],now+notes[i].end);
+              if(notes[i].end>end)
+                end=notes[i].end
+            }
+            setTimeout(function(){ setPlaying(0) }, end*1000);
         }
       }
 

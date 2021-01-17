@@ -3,6 +3,15 @@ import * as Tone from 'tone'
 const gain = new Tone.Gain(0.2).toDestination();
 const filter = new Tone.Filter({frequency: 1000, type: "lowpass", rolloff: -12, Q: 0}).connect(gain);
 
+var isPlaying = 0
+export function getPlaying(){
+  return isPlaying
+}
+
+export function setPlaying(x) {
+  isPlaying=x
+} 
+
 export const synth = new Tone.PolySynth(Tone.Synth,{
   oscillator : {
     count: 2,
