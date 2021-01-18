@@ -46,7 +46,20 @@ export class Progression{
             }
             setTimeout(function(){ setPlaying(0) }, end*1000*120/getTempo());
         }
-      }
+    }
+
+    compare(progression){
+        const notes = progression.getAllNotes().map(note => JSON.stringify(note))
+        const thisNotes = this.getAllNotes().map(note => JSON.stringify(note))
+        let counter = 0
+        for(let i=0; i<notes.length; i++){
+            if(thisNotes.includes(notes[i]))
+                counter++
+        }
+        if(counter===notes.length)
+            return true
+        return false
+    }
 
     transpose(scale){
         const diff = scale - this.genome.scale

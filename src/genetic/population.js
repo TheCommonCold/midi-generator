@@ -25,7 +25,17 @@ export function newGeneration(population, jazziness, noteLengths){
     
         const crossed = cross(spec1,spec2, jazziness)
         const mutated = crossed.mutate(jazziness, noteLengths)
-        newPopulation.push(mutated)
+
+        let decision = 1
+        for(let j = 0; j<newPopulation.length; j++){
+            if(newPopulation[j].compare(mutated)){
+                i--
+                decision = 0
+                break
+            }
+        }
+        if(decision===1)
+            newPopulation.push(mutated)
     }
     return newPopulation
 }

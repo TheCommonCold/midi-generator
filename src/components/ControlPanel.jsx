@@ -12,10 +12,10 @@ function ControlPanel() {
     const [generation, setGeneration] = useState(0)
 
     const [state, setState] = useState({
-        populationSize: 12,
+        populationSize: 8,
         jazziness: 4,
         numberOfNotes: 3,
-        noteLengths: 12,
+        noteLengths: 13,
         progressionLength: 8
     })
 
