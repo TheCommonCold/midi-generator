@@ -1,10 +1,12 @@
 import { Genome } from './genome'
-import {constructRythm, rythms} from './rythm'
+import {constructRythm, rythms, mapRythm} from './rythm'
 import { Note } from './note'
 import { RandomChord } from './chords'
 import { synth, getPlaying, setPlaying, getTempo } from './synth'
 import {constructVoicing} from './population'
 import * as Tone from 'tone'
+import midiWriter  from 'midi-writer-js'; 
+import FileSaver from 'file-saver';
 
 export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0, progressionLength){
     let octave = 0
@@ -39,12 +41,12 @@ export class Progression{
             const notes = this.getAllNotes()
             const now = Tone.now()
             for(let i = 0; i<notes.length; i++){
-              synth.triggerAttack(notes[i].note, now+(notes[i].start*120/getTempo()));
-              synth.triggerRelease([notes[i].note],now+(notes[i].end*120/getTempo()));
+              synth.triggerAttack(notes[i].note, now+(notes[i].start*2*120/getTempo()));
+              synth.triggerRelease([notes[i].note],now+(notes[i].end*2*120/getTempo()));
               if(notes[i].end>end)
                 end=notes[i].end
             }
-            setTimeout(function(){ setPlaying(0) }, end*1000*120/getTempo());
+            setTimeout(function(){ setPlaying(0) }, end*2*1000*120/getTempo());
         }
     }
 
@@ -59,6 +61,25 @@ export class Progression{
         if(counter===notes.length)
             return true
         return false
+    }
+
+    download(){
+        var track = new midiWriter.Track();
+        
+        for(let i = 0; i<this.notes.length;i++){
+            track.addEvent([
+                new midiWriter.NoteEvent({pitch: [...this.notes[i].chord.map(x => x.note), this.notes[i].root.note], duration: mapRythm(this.rythm[i])}),
+            ], function(event, index) {
+            return {sequential: false};
+        });
+        }
+
+        var write = new midiWriter.Writer(track);
+        let blob;
+        blob = new Blob([ write.buildFile() ], {
+            type: 'audio/midi'
+          });
+        FileSaver.saveAs(blob, 'midi');
     }
 
     transpose(scale){
@@ -104,7 +125,6 @@ export class Progression{
     }
 
     mutateRythm(p,jazziness, window){
-        window=window-rythms.length+1
         let temp
         const [tempNewRythm, tempNotes] = this.joinChord(p,jazziness)
         temp = new Progression({...this, notes: tempNotes, rythm: tempNewRythm })
@@ -117,8 +137,8 @@ export class Progression{
         let newRythm = []
         let notes = []
         let beginning = 0
-        const max = Math.min(rythms.length-1 + window,rythms.length-1)
-        const min = Math.max(window,0)
+        const max = window.max
+        const min = window.min
         for(let i = 0; i<this.rythm.length; i++){
             let avaibleRythms = []
             rythms.forEach((x,index) => {

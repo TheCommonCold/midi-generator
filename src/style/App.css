@@ -14,6 +14,24 @@
     color: rgba(255, 255, 255, 0);
 }
 
+.download{
+  position: absolute;
+  left:0;
+  width: 25px;
+  height: 25px;
+  bottom: 22%;
+  z-index: 2;
+  cursor: pointer;
+  background-color: rgba(0, 160, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.download:hover{
+  display: block;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 160, 255, 0.3);
+}
+
 .vote:hover{
     display: block;
     background-color: rgba(80, 80, 80, 0.3);

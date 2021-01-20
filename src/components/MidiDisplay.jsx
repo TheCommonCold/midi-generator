@@ -3,6 +3,7 @@ import {Container, Row, Col} from 'reactstrap'
 import { useDispatch } from 'react-redux'
 import Slider from '@material-ui/core/Slider';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 import DisplayNotes from './DisplayNotes'
 import { setSpecimanScore} from '../actions/populationActions'
@@ -18,11 +19,16 @@ function MidiDisplay({progression, index}){
     progression.play()
   }
 
+  const download = () => {
+    progression.download()
+  }
+
   return (
   <Container className='p-0 h-100'>
       <Row className='w-100 m-0 h-75'>
           <DisplayNotes color='#c62828' progression={progression} />
           <div className='vote' onClick={play}><PlayCircleOutlineIcon style={{ fontSize: 80 }} className='vote-text'/></div>
+          <div className='download' onClick={download}><SaveAltIcon style={{ fontSize: 20 }} className='vote-text'/></div>
       </Row>
       <Row>
         <Col sm={3}>

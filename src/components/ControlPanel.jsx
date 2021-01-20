@@ -13,10 +13,11 @@ function ControlPanel() {
 
     const [state, setState] = useState({
         populationSize: 8,
-        jazziness: 4,
-        numberOfNotes: 3,
-        noteLengths: 13,
-        progressionLength: 8
+        jazziness: 5,
+        numberOfNotes: 4,
+        progressionLength: 4,
+        windowmin:2,
+        windowmax:6
     })
 
     const [tempo, settempo] = useState(120)
@@ -42,7 +43,7 @@ function ControlPanel() {
     const restart = () => {
         setGeneration(0)
         dispatch(deletePopulation())
-        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, state.noteLengths, state.progressionLength).map(x => dispatch(addSpeciman(x)))
+        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, {min:state.windowmin,max:state.windowmax}, state.progressionLength).map(x => dispatch(addSpeciman(x)))
     }
 
     useEffect(() => {
@@ -63,8 +64,15 @@ function ControlPanel() {
                 <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
                 <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
                 <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> 
-                <Col><TextField name='noteLengths' label="Note lengths" type="number" onChange={handleChange} value={state.noteLengths}/></Col>
             </Row>
+            <Row className='p-5'>
+                        <Col>
+                        <TextField name='windowmin' label="Min note len" type="number" onChange={handleChange} value={state.windowmin}/>
+                        </Col>
+                        <Col>
+                        <TextField name='windowmax' label="Max note len" type="number" onChange={handleChange} value={state.windowmax}/>
+                        </Col>
+                    </Row>
             <Row>
                 <Button variant="contained" color="primary" onClick={restart}>
                     Restart

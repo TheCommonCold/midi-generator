@@ -12,7 +12,7 @@ export function createPopulation(size,jazziness, numberOfNotes, noteLengths, pro
     return population
 }
 
-export function newGeneration(population, jazziness, noteLengths){
+export function newGeneration(population, jazziness, noteLengths, length){
     let newPopulation = []
     for(let i = 0; i<population.length; i++){
         const roulette = createRoulette(population.map(x => x.score))
@@ -23,7 +23,7 @@ export function newGeneration(population, jazziness, noteLengths){
         const spec1 = population[pick1]
         const spec2 = population[pick2]
     
-        const crossed = cross(spec1,spec2, jazziness)
+        const crossed = cross(spec1,spec2, jazziness, length)
         const mutated = crossed.mutate(jazziness, noteLengths)
 
         let decision = 1
@@ -57,7 +57,7 @@ function pickSpeciman(roulette){
     return i-1
 }
 
-export function cross(prog1, prog2, jazziness){
+export function cross(prog1, prog2, jazziness, length){
     const max = Math.max(prog1.genome.scale, prog2.genome.scale)
     const min = Math.min(prog1.genome.scale, prog2.genome.scale)
 
@@ -66,7 +66,6 @@ export function cross(prog1, prog2, jazziness){
     const prog1Transposed = prog1.transpose(newScale)
     const prog2Transposed = prog2.transpose(newScale)
 
-    const length = 8
     const newRythm = crossRythms(prog1Transposed.getAllNotes(), prog2Transposed.getAllNotes(), length)
 
     const newMelody = crossMelodies(prog1Transposed, prog2Transposed, newRythm, newScale, prog1.notes[0].chord.length,jazziness)

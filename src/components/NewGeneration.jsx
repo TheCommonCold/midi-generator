@@ -15,7 +15,7 @@ function NewGeneration({updateGeneration, params}){
 
     const nextGen = () => {
         dispatch(deletePopulation())
-        newGeneration(population, params.jazziness, params.noteLengths).map(x => dispatch(addSpeciman(x)))
+        newGeneration(population, params.jazziness, {min:params.windowmin,max:params.windowmax},params.progressionLength).map(x => dispatch(addSpeciman(x)))
         updateGeneration()
     }
 
