@@ -24,6 +24,10 @@ function ControlPanel() {
 
     const dispatch = useDispatch()
 
+    let disabled = 0
+    if(generation>0)
+        disabled = 1
+
     const handleChange = (e) => {
         if(e.target.name==='tempo'){
             settempo(e.target.value)
@@ -60,18 +64,18 @@ function ControlPanel() {
             </Row>
             <Row className='p-5'>
                 <Col><TextField name='tempo' label="Tempo" type="number" onChange={handleChange} value={tempo}/></Col>
-                <Col><TextField name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
-                <Col><TextField name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
-                <Col><TextField name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
-                <Col><TextField name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> 
+                <Col><TextField disabled={disabled} name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
+                <Col><TextField disabled={disabled} name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
             </Row>
             <Row className='p-5'>
                         <Col>
-                        <TextField name='windowmin' label="Min note len" type="number" onChange={handleChange} value={state.windowmin}/>
+                        <TextField disabled={disabled} name='windowmin' label="Min note len" type="number" onChange={handleChange} value={state.windowmin}/>
                         </Col>
                         <Col>
-                        <TextField name='windowmax' label="Max note len" type="number" onChange={handleChange} value={state.windowmax}/>
+                        <TextField disabled={disabled} name='windowmax' label="Max note len" type="number" onChange={handleChange} value={state.windowmax}/>
                         </Col>
+                        <Col><TextField disabled={disabled} name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/></Col>
+                <Col><TextField disabled={disabled} name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/></Col> 
                     </Row>
             <Row>
                 <Button variant="contained" color="primary" onClick={restart}>
