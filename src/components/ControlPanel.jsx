@@ -7,6 +7,7 @@ import {createPopulation} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
 import NewGeneration from './NewGeneration'
 import { setTempo } from '../genetic/synth'
+import {rythms} from '../genetic/rythm'
 
 function ControlPanel() {
     const [generation, setGeneration] = useState(0)
@@ -16,7 +17,7 @@ function ControlPanel() {
         jazziness: 5,
         numberOfNotes: 4,
         progressionLength: 4,
-        windowmin:2,
+        windowmin:4,
         windowmax:6
     })
 
@@ -29,15 +30,29 @@ function ControlPanel() {
         disabled = 1
 
     const handleChange = (e) => {
+
+        let contraint = false
+        const value = parseInt(e.target.value)
+
+        if(e.target.name === 'windowmin'){
+            if(value>state.windowmax || value<0)
+                contraint = true
+        }
+        if(e.target.name === 'windowmax'){
+            if(value<state.windowmin || value>=rythms.length)
+                contraint = true
+        }
+
         if(e.target.name==='tempo'){
-            settempo(e.target.value)
-            setTempo(e.target.value)
+            settempo(value)
+            setTempo(value)
         }
         else
-            setState({
-                ...state,
-                [e.target.name]: e.target.value
-            });
+            if(!contraint)
+                setState({
+                    ...state,
+                    [e.target.name]: parseInt(e.target.value)
+                });
     }
 
     const updateGeneration = () => {
