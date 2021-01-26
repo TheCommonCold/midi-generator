@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# Wstęp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ten program służy do generowania fraz muzycznych. Program jest zdolny do generowania melodii oraz progresji akordów. Program zakłąda aktywne uczestnitwo użytkownika w generowaniu kolejnych pokoleń fraz. Użytkownik ocenia, które frazy mu się podobają co decyduje o cechcach kolejnych pokoleń fraz.
 
-## Available Scripts
+# UI
 
-In the project directory, you can run:
+Panel użytkownika składa się z sekcji z parametram, które może zmieniać przed rozpoczęciem procesu ewolucji oraz sekcji zawierającej frazy. 
 
-### `npm start`
+## Parametry
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+``Tempo`` - reguluje tempo fraz (w efekcie prędkość odtwarzania)
+``Progression Length`` - reguluje ogólną długość tworzonych progresji
+``Population Size`` - reguluje ilość osobników w populacji
+``Mutation Chance`` - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji
+``Min. Note Length`` - minimalna długość nut występujących w ramach frazy
+``Max. Note Length`` - maksymalna długość nut występujących w ramach frazy
+``Jazziness`` - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu
+``Number of Notes`` - ilość nut, z których budowane są akordy - ustawienie tego parametru na warość ``1`` spowoduje, że generator będzie działał jako generator melodii
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Dodatkowo użytkownik ma dostęp do dwóch guzików: ``RESTART`` oraz ``EVOLVE``. 
+``RESTART`` - resetuje frazy i wraca do generacji zerowel
+``EVOLVE`` - powoduje przejście do kolejnej generacji
 
-### `npm test`
+## Frazy
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Frazy przedstawione są za pomocą zapisu midi. Kliknięcie na frazę spowoduje jej odtworzenie. W dolnym lewym rogu każdego graficznego przedstawienia frazy widnieje ikonka, której kliknięcie powoduje pobranie frazy w formacie midi.

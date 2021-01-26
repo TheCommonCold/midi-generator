@@ -89,10 +89,10 @@ export class Progression{
         return new Progression({...this,genome, notes })
     }
 
-    mutate(jazziness, noteLengths){
+    mutate(jazziness, noteLengths, mutationChance){
         let newProgression = this.mutateScale()
-        newProgression = this.mutateRythm(0.1,jazziness, noteLengths)
-        newProgression = this.mutateMelody(0.1,jazziness)
+        newProgression = this.mutateRythm(mutationChance,jazziness, noteLengths)
+        newProgression = this.mutateMelody(mutationChance,jazziness)
         return newProgression
     }
 

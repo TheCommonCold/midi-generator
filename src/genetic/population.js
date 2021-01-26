@@ -12,7 +12,7 @@ export function createPopulation(size,jazziness, numberOfNotes, noteLengths, pro
     return population
 }
 
-export function newGeneration(population, jazziness, noteLengths, length){
+export function newGeneration(population, jazziness, noteLengths, length, mutationChance){
     let newPopulation = []
     for(let i = 0; i<population.length; i++){
         const roulette = createRoulette(population.map(x => x.score))
@@ -24,7 +24,7 @@ export function newGeneration(population, jazziness, noteLengths, length){
         const spec2 = population[pick2]
     
         const crossed = cross(spec1,spec2, jazziness, length)
-        const mutated = crossed.mutate(jazziness, noteLengths)
+        const mutated = crossed.mutate(jazziness, noteLengths, mutationChance)
 
         let decision = 1
         for(let j = 0; j<newPopulation.length; j++){
