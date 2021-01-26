@@ -6,21 +6,35 @@ Ten program służy do generowania fraz muzycznych. Program jest zdolny do gener
 
 Panel użytkownika składa się z sekcji z parametram, które może zmieniać przed rozpoczęciem procesu ewolucji oraz sekcji zawierającej frazy. 
 
-## Parametry
+### Parametry
 
-``Tempo`` - reguluje tempo fraz (w efekcie prędkość odtwarzania)
-``Progression Length`` - reguluje ogólną długość tworzonych progresji
-``Population Size`` - reguluje ilość osobników w populacji
-``Mutation Chance`` - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji
-``Min. Note Length`` - minimalna długość nut występujących w ramach frazy
-``Max. Note Length`` - maksymalna długość nut występujących w ramach frazy
-``Jazziness`` - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu
-``Number of Notes`` - ilość nut, z których budowane są akordy - ustawienie tego parametru na warość ``1`` spowoduje, że generator będzie działał jako generator melodii
+``Tempo`` - reguluje tempo fraz (w efekcie prędkość odtwarzania)   
+``Progression Length`` - reguluje ogólną długość tworzonych progresji   
+``Population Size`` - reguluje ilość osobników w populacji   
+``Mutation Chance`` - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji   
+``Min. Note Length`` - minimalna długość nut występujących w ramach frazy   
+``Max. Note Length`` - maksymalna długość nut występujących w ramach frazy   
+``Jazziness`` - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu   
+``Number of Notes`` - ilość nut, z których budowane są akordy - ustawienie tego parametru na warość ``1`` spowoduje, że generator będzie działał jako generator melodii   
 
-Dodatkowo użytkownik ma dostęp do dwóch guzików: ``RESTART`` oraz ``EVOLVE``. 
-``RESTART`` - resetuje frazy i wraca do generacji zerowel
-``EVOLVE`` - powoduje przejście do kolejnej generacji
+Dodatkowo użytkownik ma dostęp do dwóch guzików: ``RESTART`` oraz ``EVOLVE``:    
+``RESTART`` - resetuje frazy i wraca do generacji zerowej   
+``EVOLVE`` - powoduje przejście do kolejnej generacji   
 
-## Frazy
+### Frazy
 
 Frazy przedstawione są za pomocą zapisu midi. Kliknięcie na frazę spowoduje jej odtworzenie. W dolnym lewym rogu każdego graficznego przedstawienia frazy widnieje ikonka, której kliknięcie powoduje pobranie frazy w formacie midi.
+
+# Pierwsza generacja
+
+Pierwsza generacja fraz jest generowana w sposób zupełnie losowy. Wpierw generowany jest rytm frazy. Generowanie odbywa się poprzez losowe wybieranie długości nut z predefiniowanej tablicy. Wybór ten jest ograniczoney przez parametry ``Min. Note Length`` oraz ``Max. Note Length``. W wyniku tego procesu powstaje tablica długości, których suma jest równa ``Progression Length``. Następnie dobierana jest skala. Obecnie wspierane są jedynie 12 skal durowych/mollowych. Następnie dla każdej długości z tablicy długości wybierana jest bazowa nuta i z niej budowany jest akord. Budowa akordu polega na dobieraniu harmoni według predefiniowanej tabeli wszystkich harmoni durowych oraz molowych. Ilość nut w akordzie jest zależna od parametru ``Number of Notes``, a skomplikowaność harmonii zależna jest od parametru ``Jazziness``. 
+
+# Kolejne generacje
+
+### Ocena
+
+Tworzenie kolejnej generacji rozpoczyna się od oceny fraz przez użytkownika. Ocena to wartość z przedziału od 0 do 100. Każda fraza zaczyna z oceną 10. Ustawienie oceny 0 spowoduje, że fraza nie będzie brała udziału w kreacji kolejnej generacji.
+
+### Selekcja
+
+Na podstawie ocen generowana jest ruletka. Populacja nowej generacji jest generowana poprzez 
