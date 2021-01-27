@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Jumbotron, Container, Row, Col} from 'reactstrap'
 import { useDispatch } from 'react-redux'
-import {Button, TextField} from '@material-ui/core';
+import {Button, TextField, Select, MenuItem, InputLabel} from '@material-ui/core';
 
 import {createPopulation} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
@@ -18,8 +18,8 @@ function ControlPanel() {
         jazziness: 5,
         numberOfNotes: 4,
         progressionLength: 4,
-        windowmin:4,
-        windowmax:6
+        windowmin:rythms[4],
+        windowmax:rythms[6]
     })
 
     const [tempo, settempo] = useState(120)
@@ -33,16 +33,16 @@ function ControlPanel() {
     const handleChange = (e) => {
 
         let contraint = false
-        const value = parseInt(e.target.value)
+        let value = parseFloat(e.target.value)
 
-        if(e.target.name === 'windowmin'){
-            if(value>state.windowmax || value<0)
-                contraint = true
-        }
-        if(e.target.name === 'windowmax'){
-            if(value<state.windowmin || value>=rythms.length)
-                contraint = true
-        }
+        // if(e.target.name === 'windowmin'){
+        //     if(value>state.windowmax || value<0)
+        //         contraint = true
+        // }
+        // if(e.target.name === 'windowmax'){
+        //     if(value<state.windowmin || value>=rythms.length)
+        //         contraint = true
+        // }
 
         if(e.target.name==='tempo'){
             settempo(value)
@@ -52,7 +52,7 @@ function ControlPanel() {
             if(!contraint)
                 setState({
                     ...state,
-                    [e.target.name]: parseInt(e.target.value)
+                    [e.target.name]: value
                 });
     }
 
@@ -63,7 +63,7 @@ function ControlPanel() {
     const restart = () => {
         setGeneration(0)
         dispatch(deletePopulation())
-        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, {min:state.windowmin,max:state.windowmax}, state.progressionLength).map(x => dispatch(addSpeciman(x)))
+        createPopulation(state.populationSize, state.jazziness, state.numberOfNotes, {min:rythms.indexOf(state.windowmin),max:rythms.indexOf(state.windowmax)}, state.progressionLength).map(x => dispatch(addSpeciman(x)))
     }
 
     useEffect(() => {
@@ -86,10 +86,40 @@ function ControlPanel() {
             </Row>
             <Row className='p-5'>
                         <Col>
-                        <TextField disabled={disabled} name='windowmin' label="Min note len" type="number" onChange={handleChange} value={state.windowmin}/>
+                            <InputLabel shrink >
+                            Min Note length
+                            </InputLabel>
+                            <Select
+                            name='windowmin'
+                            disabled={disabled}
+                            value={state.windowmin}
+                            onChange={handleChange}
+                            >
+                            {rythms.map((rythm, index) => {
+                                if(rythm<state.windowmax)
+                                return <MenuItem key={index} value={rythm}>{rythm}</MenuItem>
+                                else
+                                return null
+                            })}
+                            </Select>
                         </Col>
                         <Col>
-                        <TextField disabled={disabled} name='windowmax' label="Max note len" type="number" onChange={handleChange} value={state.windowmax}/>
+                        <InputLabel shrink >
+                        Min Note length
+                            </InputLabel>
+                            <Select
+                            name='windowmax'
+                            disabled={disabled}
+                            value={state.windowmax}
+                            onChange={handleChange}
+                            >
+                            {rythms.map((rythm, index) => {
+                                if(rythm>state.windowmin)
+                                return <MenuItem key={index} value={rythm}>{rythm}</MenuItem>
+                                else
+                                return null
+                            })}
+                            </Select>
                         </Col>
                         <Col>
                         <TextField disabled={disabled} name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/>
@@ -102,7 +132,7 @@ function ControlPanel() {
                 <Button variant="contained" color="primary" onClick={restart}>
                     Restart
                 </Button>
-                <NewGeneration updateGeneration={updateGeneration} params={state}/>
+                <NewGeneration updateGeneration={updateGeneration} params={{...state, windowmin: rythms.indexOf(state.windowmin), windowmax:rythms.indexOf(state.windowmax)}}/>
             </Row>
         </Container>
     </Jumbotron>
