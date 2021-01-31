@@ -1,6 +1,6 @@
 # Wstęp
 
-Ten program służy do generowania fraz muzycznych. Program jest zdolny do generowania melodii oraz progresji akordów. Program zakłąda aktywne uczestnitwo użytkownika w generowaniu kolejnych pokoleń fraz. Użytkownik ocenia, które frazy mu się podobają co decyduje o cechcach kolejnych pokoleń fraz.
+Ten program służy do generowania fraz muzycznych. Program jest zdolny do generowania melodii oraz progresji akordów. Program zakłada aktywne uczestnitwo użytkownika w generowaniu kolejnych pokoleń fraz. Użytkownik ocenia, które frazy mu się podobają co decyduje o cechcach kolejnych pokoleń fraz.
 
 # UI
 
@@ -10,12 +10,12 @@ Panel użytkownika składa się z sekcji z parametram, które może zmieniać pr
 
 ``Tempo`` - reguluje tempo fraz (w efekcie prędkość odtwarzania)   
 ``Progression Length`` - reguluje ogólną długość tworzonych progresji   
-``Population Size`` - reguluje ilość osobników w populacji   
+``Population Size`` - reguluje liczbę osobników w populacji   
 ``Mutation Chance`` - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji   
 ``Min. Note Length`` - minimalna długość nut występujących w ramach frazy   
 ``Max. Note Length`` - maksymalna długość nut występujących w ramach frazy   
 ``Jazziness`` - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu   
-``Number of Notes`` - ilość nut, z których budowane są akordy - ustawienie tego parametru na warość ``1`` spowoduje, że generator będzie działał jako generator melodii   
+``Number of Notes`` - liczba nut, z których budowane są akordy - ustawienie tego parametru na warość ``1`` spowoduje, że generator będzie działał jako generator melodii   
 
 Dodatkowo użytkownik ma dostęp do dwóch guzików: ``RESTART`` oraz ``EVOLVE``:    
 ``RESTART`` - resetuje frazy i wraca do generacji zerowej   
