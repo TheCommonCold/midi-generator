@@ -35,25 +35,18 @@ function ControlPanel() {
         let contraint = false
         let value = parseFloat(e.target.value)
 
-        // if(e.target.name === 'windowmin'){
-        //     if(value>state.windowmax || value<0)
-        //         contraint = true
-        // }
-        // if(e.target.name === 'windowmax'){
-        //     if(value<state.windowmin || value>=rythms.length)
-        //         contraint = true
-        // }
-
-        if(e.target.name==='tempo'){
-            settempo(value)
-            setTempo(value)
+        if(value>0){
+            if(e.target.name==='tempo'){
+                settempo(value)
+                setTempo(value)
+            }
+            else
+                if(!contraint)
+                    setState({
+                        ...state,
+                        [e.target.name]: value
+                    });
         }
-        else
-            if(!contraint)
-                setState({
-                    ...state,
-                    [e.target.name]: value
-                });
     }
 
     const updateGeneration = () => {
@@ -79,10 +72,10 @@ function ControlPanel() {
                 <h2>Generation: {generation}</h2>
             </Row>
             <Row className='p-5'>
-                <Col><TextField name='tempo' label="Tempo" type="number" onChange={handleChange} value={tempo}/></Col>
-                <Col><TextField disabled={disabled} name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
-                <Col><TextField disabled={disabled} name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
-                <Col><TextField disabled={disabled} name='mutationChance' label="Mutation chance" type="number" onChange={handleChange} value={state.mutationChance}/></Col>
+                <Col><TextField InputProps={{ inputProps: { min: 1 } }} name='tempo' label="Tempo" type="number" onChange={handleChange} value={tempo}/></Col>
+                <Col><TextField InputProps={{ inputProps: { min: 1 } }} disabled={disabled} name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
+                <Col><TextField InputProps={{ inputProps: { min: 1 } }} disabled={disabled} name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
+                <Col><TextField InputProps={{ inputProps: { max: 1 } }} disabled={disabled} name='mutationChance' label="Mutation chance" type="number" onChange={handleChange} value={state.mutationChance}/></Col>
             </Row>
             <Row className='p-5'>
                         <Col>
@@ -105,7 +98,7 @@ function ControlPanel() {
                         </Col>
                         <Col>
                         <InputLabel shrink >
-                        Min Note length
+                        Max Note length
                             </InputLabel>
                             <Select
                             name='windowmax'
@@ -122,10 +115,10 @@ function ControlPanel() {
                             </Select>
                         </Col>
                         <Col>
-                        <TextField disabled={disabled} name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/>
+                        <TextField InputProps={{ inputProps: { min: state.numberOfNotes, max:12 } }} disabled={disabled} name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/>
                         </Col>
                         <Col>
-                        <TextField disabled={disabled} name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/>
+                        <TextField InputProps={{ inputProps: { min: 1, max:10} }} disabled={disabled} name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/>
                         </Col> 
                     </Row>
             <Row>
