@@ -1,29 +1,81 @@
 .jumbotron {
-    background-color: rgb(35, 38, 39)!important;
+    background-color: rgb(33, 33, 35)!important;
   }
 
+.midi-field {
+  background-color: rgba(42, 40, 40);
+}
 
-.vote{
+.play{
     position: absolute;
     left:0;
-    width: 100%;
-    height: 78%;
+    width: 70%;
+    height: 100%;
     top: 0;
     z-index: 2;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0.02);
+}
+
+.score{
+  position: absolute;
+  left:0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.score-bar{
+  height: 10%;
+}
+
+.score-bar-color{
+  display: block;
+  background-color: rgba(255, 50, 50, 0.2);
+}
+
+.up-vote{
+  position: absolute;
+  right:0;
+  width: 30%;
+  height: 50%;
+  top: 0;
+  z-index: 2;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.02);
+}
+
+.down-vote{
+  position: absolute;
+  right:0;
+  width: 30%;
+  height: 50%;
+  bottom: 0;
+  z-index: 2;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.02);
+}
+
+.border-color{
+  border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .download{
   position: absolute;
   left:0;
-  width: 25px;
-  height: 25px;
-  bottom: 22%;
+  width: 15%;
+  height: 25%;
+  top: 0%;
   z-index: 2;
   cursor: pointer;
-  background-color: rgba(0, 160, 255, 0.05);
-  color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 160, 255, 0.0);
+  color: rgba(255, 255, 255, 0.06);
+}
+
+.score-text{
+  position: absolute;
+  bottom:0px;
 }
 
 .download:hover{
@@ -32,13 +84,25 @@
   background-color: rgba(0, 160, 255, 0.3);
 }
 
-.vote:hover{
+.overlay:hover{
     display: block;
-    background-color: rgba(80, 80, 80, 0.3);
-    color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(100, 100, 100, 0.2);
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.vote-text{
+.up-vote:hover{
+  display: block;
+  background-color: rgba(50, 255, 50, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.down-vote:hover{
+  display: block;
+  background-color: rgba(255, 50, 50, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.overlay-text{
     position: absolute;
     top: 50%;
     left: 50%;

@@ -1,9 +1,10 @@
 import React from 'react';
-import {Container, Row, Col} from 'reactstrap'
+import {Container, Row} from 'reactstrap'
 import { useDispatch } from 'react-redux'
-import Slider from '@material-ui/core/Slider';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import DisplayNotes from './DisplayNotes'
 import { setSpecimanScore} from '../actions/populationActions'
@@ -11,8 +12,14 @@ import { setSpecimanScore} from '../actions/populationActions'
 function MidiDisplay({progression, index}){
   const dispatch = useDispatch()
 
-  const setScore = (_, value) => {
-    dispatch(setSpecimanScore({index: index ,score: value}))
+  const scoreUp = () => {
+    if(progression.score<10)
+      dispatch(setSpecimanScore({index: index ,score: progression.score+1}))
+  }
+
+  const scoreDown = () => {
+    if(progression.score>0)
+      dispatch(setSpecimanScore({index: index ,score: progression.score-1}))
   }
 
   const play = () => {
@@ -23,14 +30,34 @@ function MidiDisplay({progression, index}){
     progression.download()
   }
 
+  let scoreMeter = []
+  let tempScore = progression.score
+  for(let i = 0; i<10; i++){
+    if(tempScore>0){
+      scoreMeter.push(<div className='w-100 score-bar score-bar-color'></div>)
+      tempScore--
+    } else {
+      scoreMeter.push(<div className='w-100 score-bar'></div>)
+    }
+  }
+  scoreMeter.reverse()
+
   return (
   <Container className='p-0 h-100'>
-      <Row className='w-100 m-0 h-75'>
+      <Row className='w-100 m-0 h-100'>
           <DisplayNotes color='#c62828' progression={progression} />
-          <div className='vote' onClick={play}><PlayCircleOutlineIcon style={{ fontSize: 80 }} className='vote-text'/></div>
-          <div className='download' onClick={download}><SaveAltIcon style={{ fontSize: 20 }} className='vote-text'/></div>
+          <div className='overlay play border-color' onClick={play}><PlayCircleOutlineIcon style={{ fontSize: 80 }} className='overlay-text'/></div>
+          <div className='overlay up-vote border-color' onClick={scoreUp}><ArrowUpwardIcon style={{ fontSize: 60 }} className='overlay-text'/></div>
+          <div className='overlay down-vote border-color' onClick={scoreDown}><ArrowDownwardIcon style={{ fontSize: 60 }} className='overlay-text'/></div>
+          <div className='download border-color' onClick={download}><SaveAltIcon style={{ fontSize: 20 }} className='overlay-text'/></div>
+          <div className='score'>
+            {scoreMeter}
+          </div>
+          <div className='score'>
+            <small className='score-text'>score: {progression.score}</small>
+          </div>
       </Row>
-      <Row>
+      {/* <Row>
         <Col sm={3}>
           <small>
             Score
@@ -51,7 +78,7 @@ function MidiDisplay({progression, index}){
           value={progression.score}
         />
         </Col>
-      </Row>
+      </Row> */}
   </Container>)
 }
 

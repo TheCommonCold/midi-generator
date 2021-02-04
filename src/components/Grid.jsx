@@ -26,7 +26,7 @@ function Grid() {
                         {
                             row.map((progression,j) => {
                                 return (
-                                <Col key={j} style={{height:"200px"}}>
+                                <Col className="m-1 midi-field p-2 pb-3" key={j} style={{height:"150px"}}>
                                     <MidiDisplay progression={progression} index={i*numberPerRow+j}/>
                                 </Col>
                                 )

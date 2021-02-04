@@ -23,7 +23,7 @@ export function createRandomProgression(jazziness, numberOfNotes, noteLengths=0,
 }
 
 export class Progression{
-    constructor({rythm, genome, score= 10, notes}){
+    constructor({rythm, genome, score= 1, notes}){
         this.notes = notes
         this.rythm = rythm
         this.genome = genome
