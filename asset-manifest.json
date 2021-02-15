@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://thecommoncold.github.io/midi-generator/static/css/main.98d5ce2f.chunk.css",
-    "main.js": "https://thecommoncold.github.io/midi-generator/static/js/main.a10fcd9c.chunk.js",
-    "main.js.map": "https://thecommoncold.github.io/midi-generator/static/js/main.a10fcd9c.chunk.js.map",
+    "main.js": "https://thecommoncold.github.io/midi-generator/static/js/main.6a40435b.chunk.js",
+    "main.js.map": "https://thecommoncold.github.io/midi-generator/static/js/main.6a40435b.chunk.js.map",
     "runtime-main.js": "https://thecommoncold.github.io/midi-generator/static/js/runtime-main.c888c28a.js",
     "runtime-main.js.map": "https://thecommoncold.github.io/midi-generator/static/js/runtime-main.c888c28a.js.map",
     "static/css/2.20aa2d7b.chunk.css": "https://thecommoncold.github.io/midi-generator/static/css/2.20aa2d7b.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.20aa2d7b.chunk.css",
     "static/js/2.9fa1a8bc.chunk.js",
     "static/css/main.98d5ce2f.chunk.css",
-    "static/js/main.a10fcd9c.chunk.js"
+    "static/js/main.6a40435b.chunk.js"
   ]
 }
