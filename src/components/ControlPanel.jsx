@@ -72,17 +72,18 @@ function ControlPanel() {
                 <h2>Generation: {generation}</h2>
             </Row>
             <Row className='p-5'>
-                <Col><TextField InputProps={{ inputProps: { min: 1 } }} name='tempo' label="Tempo" type="number" onChange={handleChange} value={tempo}/></Col>
-                <Col><TextField InputProps={{ inputProps: { min: 1 } }} disabled={disabled} name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
-                <Col><TextField InputProps={{ inputProps: { min: 1 } }} disabled={disabled} name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
-                <Col><TextField InputProps={{ inputProps: { max: 1 } }} disabled={disabled} name='mutationChance' label="Mutation chance" type="number" onChange={handleChange} value={state.mutationChance}/></Col>
+                <Col><TextField className='w-100' InputProps={{ inputProps: { min: 1 } }} name='tempo' label="Tempo" type="number" onChange={handleChange} value={tempo}/></Col>
+                <Col><TextField className='w-100' InputProps={{ inputProps: { min: 1 } }} disabled={disabled} name='progressionLength' label="Progression Length" type="number" onChange={handleChange} value={state.progressionLength}/></Col>
+                <Col><TextField className='w-100' InputProps={{ inputProps: { min: 1 } }} disabled={disabled} name='populationSize' label="Population size" type="number" onChange={handleChange} value={state.populationSize}/></Col>
+                <Col><TextField className='w-100' InputProps={{ inputProps: { max: 1 } }} disabled={disabled} name='mutationChance' label="Mutation chance" type="number" onChange={handleChange} value={state.mutationChance}/></Col>
             </Row>
             <Row className='p-5'>
                         <Col>
-                            <InputLabel shrink >
-                            Min Note length
+                            <InputLabel className='m-0' shrink >
+                            Min. possible note length
                             </InputLabel>
                             <Select
+                            className='w-100'
                             name='windowmin'
                             disabled={disabled}
                             value={state.windowmin}
@@ -97,10 +98,11 @@ function ControlPanel() {
                             </Select>
                         </Col>
                         <Col>
-                        <InputLabel shrink >
-                        Max Note length
+                        <InputLabel className='m-0' shrink >
+                        Max. possible note length
                             </InputLabel>
                             <Select
+                            className='w-100'
                             name='windowmax'
                             disabled={disabled}
                             value={state.windowmax}
@@ -115,10 +117,10 @@ function ControlPanel() {
                             </Select>
                         </Col>
                         <Col>
-                        <TextField InputProps={{ inputProps: { min: state.numberOfNotes, max:12 } }} disabled={disabled} name='jazziness' label="Jazziness" type="number" onChange={handleChange} value={state.jazziness}/>
+                        <TextField className='w-100' InputProps={{ inputProps: { min: state.numberOfNotes, max:12 } }} disabled={disabled} name='jazziness' label="Chord complexity" type="number" onChange={handleChange} value={state.jazziness}/>
                         </Col>
                         <Col>
-                        <TextField InputProps={{ inputProps: { min: 1, max:10} }} disabled={disabled} name='numberOfNotes' label="Number of notes" type="number" onChange={handleChange} value={state.numberOfNotes}/>
+                        <TextField className='w-100' InputProps={{ inputProps: { min: 1, max:10} }} disabled={disabled} name='numberOfNotes' label="No. of notes in a chord" type="number" onChange={handleChange} value={state.numberOfNotes}/>
                         </Col> 
                     </Row>
             <Row>

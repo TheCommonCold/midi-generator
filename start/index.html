@@ -1,0 +1,62 @@
+<h1>Użytkowanie</h1>
+
+<h2>Wstęp</h2>
+
+<p>Ten program służy do generowania fraz muzycznych. Program jest zdolny do generowania melodii oraz progresji akordów. Program zakłąda aktywne uczestnitwo użytkownika w generowaniu kolejnych pokoleń fraz. Użytkownik ocenia, które frazy mu się podobają co decyduje o cechcach kolejnych pokoleń fraz. Użytkownik może ewoluować frazy, aż nie uzyska rezultatów, które go satysfakcjonują.</p>
+
+<h2>Interfejs użytkownika</h2>
+
+<p>Panel użytkownika składa się z sekcji z parametram, które może zmieniać przed rozpoczęciem procesu ewolucji oraz sekcji zawierającej frazy.</p>
+
+<h3>Parametry</h3>
+
+<p>Tempo - reguluje tempo fraz (w efekcie prędkość odtwarzania)</p>
+<p>Progression Length - reguluje ogólną długość tworzonych progresji</p>
+<p>Population Size - reguluje ilość osobników w populacji</p>
+<p>Mutation Chance - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji</p>
+<p>Min. possible note length - minimalna długość nut występujących w ramach frazy</p>
+<p>Max. possible note length - maksymalna długość nut występujących w ramach frazy</p>
+<p>Chord complexity - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu</p>
+<p>No. of notes in a chord - ilość nut, z których budowane są akordy - ustawienie tego parametru na warość 1 spowoduje, że generator będzie działał jako generator melodii</p>
+
+<p>Dodatkowo użytkownik ma dostęp do dwóch guzików: RESTART oraz EVOLVE:</p>
+<p>RESTART - resetuje frazy i wraca do generacji zerowej</p>
+<p>EVOLVE - powoduje przejście do kolejnej generacji</p>
+
+<h3>Frazy</h3>
+
+<p>Frazy przedstawione są za pomocą zapisu midi. Kliknięcie na frazę spowoduje jej odtworzenie. W dolnym lewym rogu każdego graficznego przedstawienia frazy widnieje ikonka, której kliknięcie powoduje pobranie frazy w formacie midi.</p>
+
+<h2>Jak używać programu</h2>
+
+<p>Wpierw należy dobrać parametry, wartości domyślne zapewnią całkiem ciekawe akordy. Następnie należy ocenić frazy słuchając ich, a następnie oceniając suwakiem poniżej każdej z nich. Po ocenieniu należy kliknąć EVOLVE. Proces należy powtarzać aż uzyskamy frazę, która nas satysfakcjonuje</p>
+
+<h1>Część techniczna</h1>
+
+<h2>Pierwsza generacja</h2>
+
+<p>Pierwsza generacja fraz jest generowana w sposób zupełnie losowy. Wpierw generowany jest rytm frazy. Generowanie odbywa się poprzez losowe wybieranie długości nut z predefiniowanej tablicy. Wybór ten jest ograniczony przez parametry Min. Note Length oraz Max. Note Length. W wyniku tego procesu powstaje tablica długości, których suma jest równa Progression Length. Następnie dobierana jest skala. Obecnie wspierane są jedynie 12 skal durowych/molowych. Następnie dla każdej długości z tablicy długości wybierana jest bazowa nuta i z niej budowany jest akord. Budowa akordu polega na dobieraniu harmonii według predefiniowanej tabeli wszystkich harmonii durowych oraz molowych. Ilość nut w akordzie jest zależna od parametru Number of Notes, a skomplikowanie harmonii zależna jest od parametru Jazziness. </p>
+
+<h2>Kolejne generacje</h2>
+
+<h3>Ocena</h3>
+
+<p>Tworzenie kolejnej generacji rozpoczyna się od oceny fraz przez użytkownika. Ocena to wartość z przedziału od 0 do 100. Każda fraza zaczyna z oceną 10. Ustawienie oceny 0 spowoduje, że fraza nie będzie brała udziału w kreacji kolejnej generacji.</p>
+
+<h3>Selekcja</h3>
+
+<p>Populacja nowej generacji jest generowana poprzez krzyżowanie wybranych osobników oraz mutacje. Selekcja osobników do krzyżowania wybierana jest metodą ruletkową.</p>
+
+<h3>Krzyżowanie</h3>
+
+<p>Krzyżowanie zaczyna się od uzgodnienia skali. Skala obu rodziców jest sprowadzana do skali pomiędzy oryginalnymi skalami rodziców. Następnie następuje tworzenie rytmu potomka. Rytm potomka jest tworzony z początków oraz końców nut/akordów rodziców. Dla każdej długości z nowo powstałego rytmu określana jest pula bazowych nut, które występują w danym przedziale czasowym u rodziców. Z tej puli wybierana jest nuta bazowa dla danej długości z rytmu potomka. Dla tej noty bazowej budowana jest reszta akordów na podobnych zasadach co podczas budowy akordów w pierwszej generacji. Główna różnica polega na tym, że zamiast wybierać nuty z tabeli harmonii, nuty akordu są dobierane ze zbioru nut akordu, które występują w danym przedziale czasowym u rodzica i również bazuje na parametrze Jazziness. </p>
+
+<h3>Mutacje</h3>
+
+<p>Prawdopodobieństwo muracji zależy od parametru Mutation Chance. W programie istnieją 3 rodzaje mutacji:</p>
+
+<p>Mutacja skali - transpozycja całej progresji w górę lub w dół o jeden semiton</p>
+
+<p>Mutacja rytmu - skracanie akordu i tworzenie nowego w powstałe puste miejsce lub łącznie akordów z dwóch istniejących</p>
+
+<p>Mutacja melodii - zastępowanie istniejącego akordu nowo wygenerowanym</p>
