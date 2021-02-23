@@ -12,9 +12,9 @@ export function createPopulation(size,jazziness, numberOfNotes, noteLengths, pro
     return population
 }
 
-export function newGeneration(population, jazziness, noteLengths, length, mutationChance){
+export function newGeneration(population, populationSize, jazziness, noteLengths, length, mutationChance){
     let newPopulation = []
-    for(let i = 0; i<population.length; i++){
+    for(let i = 0; i<populationSize; i++){
         const roulette = createRoulette(population.map(x => x.score))
 
         const pick1 = pickSpeciman(roulette)
