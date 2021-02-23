@@ -84,18 +84,19 @@ function ControlPanel() {
         <Row className="p-3">
           <Col>
             <TextField
-              className="pr-3"
+              className="pr-3 pb-3"
               InputProps={{ inputProps: { min: 1 } }}
               name="populationSize"
-              label="Population size"
+              label="Rozmiar populacji"
               type="number"
               onChange={handleChange}
               value={state.populationSize}
             />
             <TextField
-              InputProps={{ inputProps: { max: 1 } }}
+              style={{'min-width': '120px'}}
+              InputProps={{ inputProps: { min:0, max: 1, step:0.05} }}
               name="mutationChance"
-              label="Mutation chance"
+              label="Szansa mutacji"
               type="number"
               onChange={handleChange}
               value={state.mutationChance}
@@ -104,7 +105,7 @@ function ControlPanel() {
         </Row>
         <hr />
         <Row className="p-3">
-        <Col style={{'min-width': '80px'}}>
+        <Col className='pb-3' style={{'min-width': '80px'}}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: 1 } }}
@@ -115,9 +116,9 @@ function ControlPanel() {
               value={tempo}
             />
           </Col>
-          <Col style={{'min-width': '211px'}}>
+          <Col className='pb-3' style={{'min-width': '211px'}}>
             <InputLabel className="m-0" shrink>
-              Min. possible note length
+              Min. długość nuty
             </InputLabel>
             <Select
               className="w-100"
@@ -136,9 +137,9 @@ function ControlPanel() {
               })}
             </Select>
           </Col>
-          <Col style={{'min-width': '216px'}}>
+          <Col className='pb-3' style={{'min-width': '216px'}}>
             <InputLabel className="m-0" shrink>
-              Max. possible note length
+              Max. długość nuty
             </InputLabel>
             <Select
               className="w-100"
@@ -157,36 +158,36 @@ function ControlPanel() {
               })}
             </Select>
           </Col>
-          <Col style={{'min-width': '100px'}}>
+          <Col className='pb-3' style={{'min-width': '100px'}}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: state.numberOfNotes, max: 12 } }}
               name="jazziness"
-              label="Chord complexity"
+              label="Złożoność akordu"
               type="number"
               onChange={handleChange}
               value={state.jazziness}
             />
           </Col>
-          <Col style={{'min-width': '120px'}}>
+          <Col className='pb-3' style={{'min-width': '120px'}}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: 1, max: 10 } }}
               disabled={disabled}
               name="numberOfNotes"
-              label="No. of notes in a chord"
+              label="Liczba nut w akordzie"
               type="number"
               onChange={handleChange}
               value={state.numberOfNotes}
             />
           </Col>
-          <Col style={{'min-width': '100px'}}>
+          <Col className='pb-3' style={{'min-width': '100px'}}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: 1 } }}
               disabled={disabled}
               name="progressionLength"
-              label="Progression Length"
+              label="Długość frazy"
               type="number"
               onChange={handleChange}
               value={state.progressionLength}
