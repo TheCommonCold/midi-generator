@@ -21,7 +21,7 @@ function NewGeneration({updateGeneration, params}){
 
   return (
     <Button variant="contained" color="primary" onClick={nextGen}>
-        Evolve
+        KOLEJNA GENERACJA
     </Button>
   );
 }

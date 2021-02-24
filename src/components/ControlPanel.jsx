@@ -76,7 +76,7 @@ function ControlPanel() {
   }, [state]);
 
   return (
-    <Jumbotron className='p-4'>
+    <Jumbotron className="p-4">
       <Container>
         <Row>
           <h2>Generation: {generation}</h2>
@@ -84,6 +84,7 @@ function ControlPanel() {
         <Row className="p-3">
           <Col>
             <TextField
+              style={{ "min-width": "120px" }}
               className="pr-3 pb-3"
               InputProps={{ inputProps: { min: 1 } }}
               name="populationSize"
@@ -93,8 +94,8 @@ function ControlPanel() {
               value={state.populationSize}
             />
             <TextField
-              style={{'min-width': '120px'}}
-              InputProps={{ inputProps: { min:0, max: 1, step:0.05} }}
+              style={{ "min-width": "120px" }}
+              InputProps={{ inputProps: { min: 0, max: 1, step: 0.05 } }}
               name="mutationChance"
               label="Szansa mutacji"
               type="number"
@@ -105,7 +106,7 @@ function ControlPanel() {
         </Row>
         <hr />
         <Row className="p-3">
-        <Col className='pb-3' style={{'min-width': '80px'}}>
+          <Col className="pb-3" style={{ "min-width": "80px" }}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: 1 } }}
@@ -116,7 +117,18 @@ function ControlPanel() {
               value={tempo}
             />
           </Col>
-          <Col className='pb-3' style={{'min-width': '211px'}}>
+          <Col className="pb-3" style={{ "min-width": "100px" }}>
+            <TextField
+              className="w-100"
+              InputProps={{ inputProps: { min: state.numberOfNotes, max: 12 } }}
+              name="jazziness"
+              label="Złożoność akordów"
+              type="number"
+              onChange={handleChange}
+              value={state.jazziness}
+            />
+          </Col>
+          <Col className="pb-3" style={{ "min-width": "211px" }}>
             <InputLabel className="m-0" shrink>
               Min. długość nuty
             </InputLabel>
@@ -137,7 +149,7 @@ function ControlPanel() {
               })}
             </Select>
           </Col>
-          <Col className='pb-3' style={{'min-width': '216px'}}>
+          <Col className="pb-3" style={{ "min-width": "216px" }}>
             <InputLabel className="m-0" shrink>
               Max. długość nuty
             </InputLabel>
@@ -158,18 +170,7 @@ function ControlPanel() {
               })}
             </Select>
           </Col>
-          <Col className='pb-3' style={{'min-width': '100px'}}>
-            <TextField
-              className="w-100"
-              InputProps={{ inputProps: { min: state.numberOfNotes, max: 12 } }}
-              name="jazziness"
-              label="Złożoność akordu"
-              type="number"
-              onChange={handleChange}
-              value={state.jazziness}
-            />
-          </Col>
-          <Col className='pb-3' style={{'min-width': '120px'}}>
+          <Col className="pb-3" style={{ "min-width": "120px" }}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: 1, max: 10 } }}
@@ -181,7 +182,7 @@ function ControlPanel() {
               value={state.numberOfNotes}
             />
           </Col>
-          <Col className='pb-3' style={{'min-width': '100px'}}>
+          <Col className="pb-3" style={{ "min-width": "100px" }}>
             <TextField
               className="w-100"
               InputProps={{ inputProps: { min: 1 } }}
@@ -196,7 +197,7 @@ function ControlPanel() {
         </Row>
         <Row>
           <Button variant="contained" color="primary" onClick={restart}>
-            Restart
+            ZRESETUJ
           </Button>
           <NewGeneration
             updateGeneration={updateGeneration}

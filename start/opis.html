@@ -5,54 +5,59 @@
 <p>Ten program służy do generowania fraz muzycznych. Program jest zdolny do generowania melodii oraz progresji akordów.
     Program zakłada aktywne uczestnictwo użytkownika w generowaniu kolejnych pokoleń fraz. Użytkownik ocenia, które
     frazy
-    mu się podobają co decyduje o cechach kolejnych pokoleń fraz. Użytkownik może ewoluować frazy, aż nie uzyska
+    mu się podobają, co decyduje o cechach kolejnych pokoleń fraz. Użytkownik może ewoluować frazy, aż nie uzyska
     rezultatów, które go satysfakcjonują.</p>
 
 <h2>Interfejs użytkownika</h2>
 
-<p>Panel użytkownika składa się z sekcji z parametrami, które może zmieniać przed rozpoczęciem procesu ewolucji oraz
-    sekcji zawierającej frazy.</p>
+<p>Panel użytkownika składa się z dwóch sekcji. Pierwsza sekcja zawiera parametry ewolucji oraz parametry generowanych
+    fraz muzycznych. Druga sekcja składa się z wygenerowanych fraz, które można oceniać, odtwarzać oraz pobrać w
+    formacie midi.</p>
 
 <h3>Parametry</h3>
 
+<p>Rozmiar populacji - reguluje ilość osobników w populacji</p>
+<p>Szansa mutacji - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji</p>
 <p>Tempo - reguluje tempo fraz (w efekcie prędkość odtwarzania)</p>
-<p>Progression Length - reguluje ogólną długość tworzonych progresji</p>
-<p>Population Size - reguluje ilość osobników w populacji</p>
-<p>Mutation Chance - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji</p>
-<p>Min. possible note length - minimalna długość nut występujących w ramach frazy</p>
-<p>Max. possible note length - maksymalna długość nut występujących w ramach frazy</p>
-<p>Chord complexity - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu</p>
-<p>No. of notes in a chord - ilość nut, z których budowane są akordy - ustawienie tego parametru na wartość 1 spowoduje,
+<p>Złożoność akordów - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu</p>
+<p>Min. długość nuty - minimalna długość nut występujących w ramach frazy</p>
+<p>Max. długość nuty - maksymalna długość nut występujących w ramach frazy</p>
+<p>Liczba nut w akordzie - ilość nut, z których budowane są akordy - ustawienie tego parametru na wartość 1 spowoduje,
     że generator będzie działał jako generator melodii</p>
+<p>Długość frazy - reguluje ogólną długość tworzonych progresji</p>
 
-<p>Dodatkowo użytkownik ma dostęp do dwóch guzików: RESTART oraz EVOLVE:</p>
-<p>RESTART - resetuje frazy i wraca do generacji zerowej</p>
-<p>EVOLVE - powoduje przejście do kolejnej generacji</p>
+<p>Dodatkowo użytkownik ma dostęp do dwóch guzików: ZRESETUJ oraz KOLEJNA GENERACJA:</p>
+<p>ZRESETUJ - resetuje frazy i wraca do generacji zerowej</p>
+<p>KOLEJNA GENERACJA - powoduje przejście do kolejnej generacji</p>
 
 <h3>Frazy</h3>
 
-<p>Frazy przedstawione są za pomocą zapisu midi. Kliknięcie na frazę spowoduje jej odtworzenie. W dolnym lewym rogu
+<p>Frazy przedstawione są za pomocą zapisu midi. Kliknięcie na frazę spowoduje jej odtworzenie. W górnym lewym rogu
     każdego graficznego przedstawienia frazy widnieje ikonka, której kliknięcie powoduje pobranie frazy w formacie midi.
 </p>
 
 <h2>Jak używać programu</h2>
 
-<p>Wpierw należy dobrać parametry, wartości domyślne zapewnią całkiem ciekawe akordy. Następnie należy ocenić frazy
-    słuchając ich, a następnie oceniając suwakiem poniżej każdej z nich. Po ocenieniu należy kliknąć EVOLVE. Proces
-    należy powtarzać aż uzyskamy frazę, która nas satysfakcjonuje</p>
+<p>Najpierw należy dobrać parametry ewolucji oraz parametry generowanie fraz. Wartości domyślne zapewnią całkiem ciekawe
+    akordy. Następnie należy ocenić frazy
+    słuchając ich, a następnie ustawiając im ocenę za pomocą guzików ze strzałkami umieszczonych po prawej
+    stronie każdej frazy. Po ocenieniu należy kliknąć KOLEJNA GENERACJA.
+    Proces ten należy powtarzać aż uzyskamy frazę, która nas satysfakcjonuje</p>
 
 <h1>Część techniczna</h1>
 
 <h2>Pierwsza generacja</h2>
 
-<p>Pierwsza generacja fraz jest generowana w sposób zupełnie losowy. Wpierw generowany jest rytm frazy. Generowanie
+<p>Pierwsza generacja fraz jest generowana w sposób zupełnie losowy. Najpierw generowany jest rytm frazy. Generowanie
     odbywa się poprzez losowe wybieranie długości nut z predefiniowanej tablicy. Wybór ten jest ograniczony przez
-    parametry Min. Note Length oraz Max. Note Length. W wyniku tego procesu powstaje tablica długości, których suma jest
-    równa Progression Length. Następnie dobierana jest skala. Obecnie wspierane są jedynie 12 skal durowych/molowych.
+    parametry Min. długość nuty oraz Max. długość nuty. W wyniku tego procesu powstaje tablica długości, których suma
+    jest
+    równa parametrowi Długość frazy. Następnie dobierana jest skala. Obecnie wspierane są jedynie 12 skal
+    durowych/molowych.
     Następnie dla każdej długości z tablicy długości wybierana jest bazowa nuta i z niej budowany jest akord. Budowa
     akordu polega na dobieraniu harmonii według predefiniowanej tabeli wszystkich harmonii durowych oraz molowych. Ilość
     nut w akordzie jest zależna od parametru Number of Notes, a skomplikowanie harmonii zależna jest od parametru
-    Jazziness. </p>
+    Złożoność akordów. </p>
 
 <h2>Kolejne generacje</h2>
 
@@ -75,13 +80,13 @@
     w danym przedziale czasowym u rodziców. Z tej puli wybierana jest nuta bazowa dla danej długości z rytmu potomka.
     Dla tej noty bazowej budowana jest reszta akordów na podobnych zasadach co podczas budowy akordów w pierwszej
     generacji. Główna różnica polega na tym, że zamiast wybierać nuty z tabeli harmonii, nuty akordu są dobierane ze
-    zbioru nut akordu, które występują w danym przedziale czasowym u rodzica i również bazuje na parametrze chord
-    complexity.
+    zbioru nut akordu, które występują w danym przedziale czasowym u rodzica i również bazuje na parametrze Złożoność
+    akordów.
 </p>
 
 <h3>Mutacje</h3>
 
-<p>Prawdopodobieństwo mutacji zależy od parametru Mutation Chance. W programie istnieją 3 rodzaje mutacji:</p>
+<p>Prawdopodobieństwo mutacji zależy od parametru Szansa mutacji. W programie istnieją 3 rodzaje mutacji:</p>
 
 <p>Mutacja skali - transpozycja całej progresji w górę lub w dół o jeden półton</p>
 
