@@ -73,6 +73,7 @@ export class Progression {
       }
       Tone.Transport.start();
       callback();
+      clearTimeout(getPlaying().timeout);
       setPlaying({
         timeout: setTimeout(function () {
           callback();
@@ -94,6 +95,13 @@ export class Progression {
         if (getPlaying().whichOne) getPlaying().whichOne();
       }
     }
+  }
+
+  stop(){
+    clearTimeout(getPlaying().timeout);
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
+    synth.releaseAll();
   }
 
   compare(progression) {

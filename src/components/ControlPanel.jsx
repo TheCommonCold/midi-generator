@@ -24,8 +24,8 @@ function ControlPanel() {
     jazziness: 4,
     numberOfNotes: 3,
     progressionLength: 4,
-    windowmin: rythms[2],
-    windowmax: rythms[5],
+    windowmin: rythms[1],
+    windowmax: rythms[4],
   });
 
   const [tempo, settempo] = useState(120);
@@ -79,7 +79,7 @@ function ControlPanel() {
     <Jumbotron className="p-4">
       <Container>
         <Row>
-          <h2>Generation: {generation}</h2>
+          <h2>Pokolenie: {generation}</h2>
         </Row>
         <Row className="p-3">
           <Col>
@@ -197,7 +197,7 @@ function ControlPanel() {
         </Row>
         <Row>
           <Button variant="contained" color="primary" onClick={restart}>
-            ZRESETUJ
+            ZRESTARTUJ
           </Button>
           <NewGeneration
             updateGeneration={updateGeneration}

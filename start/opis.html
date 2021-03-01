@@ -16,19 +16,20 @@
 
 <h3>Parametry</h3>
 
-<p>Rozmiar populacji - reguluje ilość osobników w populacji</p>
-<p>Szansa mutacji - szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji</p>
-<p>Tempo - reguluje tempo fraz (w efekcie prędkość odtwarzania)</p>
-<p>Złożoność akordów - ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu</p>
-<p>Min. długość nuty - minimalna długość nut występujących w ramach frazy</p>
-<p>Max. długość nuty - maksymalna długość nut występujących w ramach frazy</p>
-<p>Liczba nut w akordzie - ilość nut, z których budowane są akordy - ustawienie tego parametru na wartość 1 spowoduje,
+<p><b>Rozmiar populacji</b> – reguluje ilość osobników w populacji</p>
+<p><b>Szansa mutacji</b> – szansa na wystąpienie losowej mutacji osobnika w kolejnej generacji</p>
+<p><b>Tempo</b> – reguluje tempo fraz (w efekcie prędkość odtwarzania)</p>
+<p><b>Złożoność akordów</b> – ten parametr steruje poziomem skomplikowania harmonii wewnątrz akordu</p>
+<p><b>Min. długość nuty</b> – minimalna długość nut występujących w ramach frazy</p>
+<p><b>Max. długość nuty</b> – maksymalna długość nut występujących w ramach frazy</p>
+<p><b>Liczba nut w akordzie</b> – ilość nut, z których budowane są akordy – ustawienie tego parametru na wartość 1
+    spowoduje,
     że generator będzie działał jako generator melodii</p>
-<p>Długość frazy - reguluje ogólną długość tworzonych progresji</p>
+<p><b>Długość frazy</b> – reguluje ogólną długość tworzonych progresji</p>
 
-<p>Dodatkowo użytkownik ma dostęp do dwóch guzików: ZRESETUJ oraz KOLEJNA GENERACJA:</p>
-<p>ZRESETUJ - resetuje frazy i wraca do generacji zerowej</p>
-<p>KOLEJNA GENERACJA - powoduje przejście do kolejnej generacji</p>
+<p>Dodatkowo użytkownik ma dostęp do dwóch guzików: <b>ZRESTARTUJ</b> oraz <b>KOLEJNE POKOLENIE</b>:</p>
+<p><b>ZRESTARTUJ</b> – resetuje frazy i wraca do generacji zerowej</p>
+<p><b>KOLEJNE POKOLENIE</b> – powoduje przejście do kolejnej generacji</p>
 
 <h3>Frazy</h3>
 
@@ -41,31 +42,34 @@
 <p>Najpierw należy dobrać parametry ewolucji oraz parametry generowanie fraz. Wartości domyślne zapewnią całkiem ciekawe
     akordy. Następnie należy ocenić frazy
     słuchając ich, a następnie ustawiając im ocenę za pomocą guzików ze strzałkami umieszczonych po prawej
-    stronie każdej frazy. Po ocenieniu należy kliknąć KOLEJNA GENERACJA.
+    stronie każdej frazy. Po ocenieniu należy kliknąć <b>KOLEJNE POKOLENIE</b>.
     Proces ten należy powtarzać aż uzyskamy frazę, która nas satysfakcjonuje</p>
 
 <h1>Część techniczna</h1>
 
-<h2>Pierwsza generacja</h2>
+<h2>Pierwsze pokolenie</h2>
 
-<p>Pierwsza generacja fraz jest generowana w sposób zupełnie losowy. Najpierw generowany jest rytm frazy. Generowanie
+<p>Pierwsze pokolenie fraz jest generowana w sposób zupełnie losowy. Najpierw generowany jest rytm frazy. Generowanie
     odbywa się poprzez losowe wybieranie długości nut z predefiniowanej tablicy. Wybór ten jest ograniczony przez
-    parametry Min. długość nuty oraz Max. długość nuty. W wyniku tego procesu powstaje tablica długości, których suma
+    parametry <b>Min. długość nuty</b> oraz <b>Max. długość nuty</b>. W wyniku tego procesu powstaje tablica długości,
+    których suma
     jest
-    równa parametrowi Długość frazy. Następnie dobierana jest skala. Obecnie wspierane są jedynie 12 skal
+    równa parametrowi <b>Długość frazy</b>. Następnie dobierana jest skala. Obecnie wspierane są jedynie 12 skal
     durowych/molowych.
     Następnie dla każdej długości z tablicy długości wybierana jest bazowa nuta i z niej budowany jest akord. Budowa
-    akordu polega na dobieraniu harmonii według predefiniowanej tabeli wszystkich harmonii durowych oraz molowych. Ilość
+    akordu polega na dobieraniu harmonii według predefiniowanej tabeli wszystkich harmonii durowych oraz molowych.
+    Liczba
     nut w akordzie jest zależna od parametru Number of Notes, a skomplikowanie harmonii zależna jest od parametru
-    Złożoność akordów. </p>
+    <b>Złożoność akordów</b>.
+</p>
 
 <h2>Kolejne generacje</h2>
 
 <h3>Ocena</h3>
 
 <p>Tworzenie kolejnej generacji rozpoczyna się od oceny fraz przez użytkownika. Ocena to wartość z przedziału od 0 do
-    100. Każda fraza zaczyna z oceną 10. Ustawienie oceny 0 spowoduje, że fraza nie będzie brała udziału w kreacji
-    kolejnej generacji.</p>
+    10. Każda fraza zaczyna z oceną 1. Ustawienie oceny 0 spowoduje, że fraza nie będzie brała udziału w tworzeniu
+    kolejnego pokolenia.</p>
 
 <h3>Selekcja</h3>
 
@@ -86,11 +90,11 @@
 
 <h3>Mutacje</h3>
 
-<p>Prawdopodobieństwo mutacji zależy od parametru Szansa mutacji. W programie istnieją 3 rodzaje mutacji:</p>
+<p>Prawdopodobieństwo mutacji zależy od parametru <b>Szansa mutacji</b>. W programie istnieją 3 rodzaje mutacji:</p>
 
-<p>Mutacja skali - transpozycja całej progresji w górę lub w dół o jeden półton</p>
+<p>Mutacja skali – transpozycja całej progresji w górę lub w dół o jeden półton</p>
 
-<p>Mutacja rytmu - skracanie akordu i tworzenie nowego w powstałe puste miejsce lub łącznie akordów z dwóch istniejących
+<p>Mutacja rytmu – skracanie akordu i tworzenie nowego w powstałe puste miejsce lub łącznie akordów z dwóch istniejących
 </p>
 
-<p>Mutacja melodii - zastępowanie istniejącego akordu nowo wygenerowanym</p>
+<p>Mutacja melodii – zastępowanie istniejącego akordu nowo wygenerowanym</p>

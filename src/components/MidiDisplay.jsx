@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Container, Row } from "reactstrap";
 import { useDispatch } from "react-redux";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
@@ -15,6 +15,13 @@ import {
 
 function MidiDisplay({ progression, index, max, min }) {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      progression.stop();
+    }
+    // eslint-disable-next-line
+  }, [progression.notes]);
 
   const scoreUp = () => {
     if (progression.score < 10)
