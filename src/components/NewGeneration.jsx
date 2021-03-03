@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from '@material-ui/core';
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { newGeneration} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
@@ -20,8 +20,8 @@ function NewGeneration({updateGeneration, params}){
     }
 
   return (
-    <Button variant="contained" color="primary" onClick={nextGen}>
-        KOLEJNA GENERACJA
+    <Button className='m-1' variant="contained" color="primary" onClick={nextGen}>
+        KOLEJNA GENERACJA  <ArrowForwardIcon/>
     </Button>
   );
 }

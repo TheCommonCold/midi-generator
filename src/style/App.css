@@ -3,7 +3,7 @@
   }
 
 .midi-field {
-  background-color: rgba(42, 40, 40);
+  background-color: rgba(42, 40, 40)!important;
 }
 
 .play{

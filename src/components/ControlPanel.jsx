@@ -7,8 +7,9 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Card,
 } from "@material-ui/core";
-
+import ReplayIcon from "@material-ui/icons/Replay";
 import { createPopulation } from "../genetic/population";
 import { addSpeciman, deletePopulation } from "../actions/populationActions";
 import NewGeneration from "./NewGeneration";
@@ -81,132 +82,146 @@ function ControlPanel() {
         <Row>
           <h2>Pokolenie: {generation}</h2>
         </Row>
-        <Row className="p-3">
-          <Col>
-            <TextField
-              style={{ "min-width": "120px" }}
-              className="pr-3 pb-3"
-              InputProps={{ inputProps: { min: 1 } }}
-              name="populationSize"
-              label="Rozmiar populacji"
-              type="number"
-              onChange={handleChange}
-              value={state.populationSize}
-            />
-            <TextField
-              style={{ "min-width": "120px" }}
-              InputProps={{ inputProps: { min: 0, max: 1, step: 0.05 } }}
-              name="mutationChance"
-              label="Szansa mutacji"
-              type="number"
-              onChange={handleChange}
-              value={state.mutationChance}
-            />
-          </Col>
-        </Row>
         <hr />
         <Row className="p-3">
-          <Col className="pb-3" style={{ "min-width": "80px" }}>
-            <TextField
-              className="w-100"
-              InputProps={{ inputProps: { min: 1 } }}
-              name="tempo"
-              label="Tempo"
-              type="number"
-              onChange={handleChange}
-              value={tempo}
-            />
+          <Col className="pb-1" style={{ "min-width": "200px" }}>
+            <Card className="p-2">
+              <TextField
+                className="w-100"
+                InputProps={{ inputProps: { min: 1 } }}
+                name="populationSize"
+                label="Rozmiar populacji"
+                type="number"
+                onChange={handleChange}
+                value={state.populationSize}
+              />
+              <TextField
+                className="w-100"
+                InputProps={{ inputProps: { min: 0, max: 1, step: 0.05 } }}
+                name="mutationChance"
+                label="Szansa mutacji"
+                type="number"
+                onChange={handleChange}
+                value={state.mutationChance}
+              />
+            </Card>
           </Col>
-          <Col className="pb-3" style={{ "min-width": "100px" }}>
-            <TextField
-              className="w-100"
-              InputProps={{ inputProps: { min: state.numberOfNotes, max: 12 } }}
-              name="jazziness"
-              label="Złożoność akordów"
-              type="number"
-              onChange={handleChange}
-              value={state.jazziness}
-            />
+          <Col className="pb-3" style={{ "min-width": "200px" }}>
+            <Card className="p-2">
+              <TextField
+                className="w-100"
+                InputProps={{ inputProps: { min: 1 } }}
+                name="tempo"
+                label="Tempo"
+                type="number"
+                onChange={handleChange}
+                value={tempo}
+              />
+              <TextField
+                className="w-100"
+                InputProps={{
+                  inputProps: { min: state.numberOfNotes, max: 12 },
+                }}
+                name="jazziness"
+                label="Złożoność akordów"
+                type="number"
+                onChange={handleChange}
+                value={state.jazziness}
+              />
+            </Card>
           </Col>
-          <Col className="pb-3" style={{ "min-width": "211px" }}>
-            <InputLabel className="m-0" shrink>
-              Min. długość nuty
-            </InputLabel>
-            <Select
-              className="w-100"
-              name="windowmin"
-              value={state.windowmin}
-              onChange={handleChange}
-            >
-              {rythms.map((rythm, index) => {
-                if (rythm < state.windowmax)
-                  return (
-                    <MenuItem key={index} value={rythm}>
-                      {rythm}
-                    </MenuItem>
-                  );
-                else return null;
-              })}
-            </Select>
+          <Col className="pb-3" style={{ "min-width": "200px" }}>
+            <Card className="p-2">
+              <InputLabel className="m-0" shrink>
+                Min. długość nuty
+              </InputLabel>
+              <Select
+                className="w-100"
+                name="windowmin"
+                value={state.windowmin}
+                onChange={handleChange}
+              >
+                {rythms.map((rythm, index) => {
+                  if (rythm < state.windowmax)
+                    return (
+                      <MenuItem key={index} value={rythm}>
+                        {rythm}
+                      </MenuItem>
+                    );
+                  else return null;
+                })}
+              </Select>
+              <InputLabel className="m-0" shrink>
+                Max. długość nuty
+              </InputLabel>
+              <Select
+                className="w-100"
+                name="windowmax"
+                value={state.windowmax}
+                onChange={handleChange}
+              >
+                {rythms.map((rythm, index) => {
+                  if (rythm > state.windowmin)
+                    return (
+                      <MenuItem key={index} value={rythm}>
+                        {rythm}
+                      </MenuItem>
+                    );
+                  else return null;
+                })}
+              </Select>
+            </Card>
           </Col>
-          <Col className="pb-3" style={{ "min-width": "216px" }}>
-            <InputLabel className="m-0" shrink>
-              Max. długość nuty
-            </InputLabel>
-            <Select
-              className="w-100"
-              name="windowmax"
-              value={state.windowmax}
-              onChange={handleChange}
-            >
-              {rythms.map((rythm, index) => {
-                if (rythm > state.windowmin)
-                  return (
-                    <MenuItem key={index} value={rythm}>
-                      {rythm}
-                    </MenuItem>
-                  );
-                else return null;
-              })}
-            </Select>
-          </Col>
-          <Col className="pb-3" style={{ "min-width": "120px" }}>
-            <TextField
-              className="w-100"
-              InputProps={{ inputProps: { min: 1, max: 10 } }}
-              disabled={disabled}
-              name="numberOfNotes"
-              label="Liczba nut w akordzie"
-              type="number"
-              onChange={handleChange}
-              value={state.numberOfNotes}
-            />
-          </Col>
-          <Col className="pb-3" style={{ "min-width": "100px" }}>
-            <TextField
-              className="w-100"
-              InputProps={{ inputProps: { min: 1 } }}
-              disabled={disabled}
-              name="progressionLength"
-              label="Długość frazy"
-              type="number"
-              onChange={handleChange}
-              value={state.progressionLength}
-            />
+          <Col className="pb-3" style={{ "min-width": "200px" }}>
+            <Card className="p-2">
+              <TextField
+                className="w-100"
+                InputProps={{ inputProps: { min: 1, max: 10 } }}
+                disabled={disabled}
+                name="numberOfNotes"
+                label="Liczba nut w akordzie"
+                type="number"
+                onChange={handleChange}
+                value={state.numberOfNotes}
+              />
+              <TextField
+                className="w-100"
+                InputProps={{ inputProps: { min: 1 } }}
+                disabled={disabled}
+                name="progressionLength"
+                label="Długość frazy"
+                type="number"
+                onChange={handleChange}
+                value={state.progressionLength}
+              />
+            </Card>
           </Col>
         </Row>
         <Row>
-          <Button variant="contained" color="primary" onClick={restart}>
-            ZRESTARTUJ
-          </Button>
-          <NewGeneration
-            updateGeneration={updateGeneration}
-            params={{
-              ...state,
-              windowmin: rythms.indexOf(state.windowmin),
-              windowmax: rythms.indexOf(state.windowmax),
-            }}
-          />
+          <Col>
+            <div className="d-flex justify-content-center">
+              <Button
+                className="m-1"
+                variant="contained"
+                color="primary"
+                onClick={restart}
+              >
+                Zacznij od nowa <ReplayIcon />
+              </Button>
+            </div>
+          </Col>
+          <Col>
+            <div className="d-flex justify-content-center">
+              <NewGeneration
+                updateGeneration={updateGeneration}
+                params={{
+                  ...state,
+                  windowmin: rythms.indexOf(state.windowmin),
+                  windowmax: rythms.indexOf(state.windowmax),
+                }}
+              />
+            </div>
+          </Col>
         </Row>
       </Container>
     </Jumbotron>
