@@ -50,3 +50,7 @@ export const synth = new Tone.PolySynth(Tone.Synth, {
 }).connect(filter);
 
 // synth.sync()
+document.querySelector('button')?.addEventListener('click', async () => {
+  await Tone.start()
+  console.log('audio is ready')
+})

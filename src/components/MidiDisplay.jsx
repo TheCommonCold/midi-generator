@@ -6,6 +6,7 @@ import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import qs from 'qs';
 
 import DisplayNotes from "./DisplayNotes";
 import {
@@ -15,6 +16,7 @@ import {
 
 function MidiDisplay({ progression, index, max, min }) {
   const dispatch = useDispatch();
+  const isPL = qs.parse(window.location.search, { ignoreQueryPrefix: true }).lang==='pl'
 
   useEffect(() => {
     return () => {
@@ -61,7 +63,7 @@ function MidiDisplay({ progression, index, max, min }) {
   scoreMeter.reverse();
 
   return (
-    <Container className="p-0 h-100">
+    <Container className={"p-0 h-100"}>
       <Row className="w-100 m-0 h-100">
         <DisplayNotes
           color="#c62828"
@@ -78,7 +80,7 @@ function MidiDisplay({ progression, index, max, min }) {
           </div>
         )}
         {progression.amIPlaying && (
-          <div className="overlay play border-color" onClick={play}>
+          <div className="overlay play border-color pause" onClick={play}>
             <PauseCircleOutlineIcon
               style={{ fontSize: 80 }}
               className="overlay-text"
@@ -99,7 +101,7 @@ function MidiDisplay({ progression, index, max, min }) {
         </div>
         <div className="score">{scoreMeter}</div>
         <div className="score">
-          <small className="score-text">score: {progression.score}</small>
+          <small className="score-text">{isPL ? "ocena" : "score"}: {progression.score}</small>
         </div>
       </Row>
       {/* <Row>

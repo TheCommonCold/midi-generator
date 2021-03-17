@@ -54,7 +54,8 @@ export class Progression {
     return this.notes.map((chord) => [...chord.chord, chord.root]).flat();
   }
 
-  play(callback) {
+  async play(callback) {
+    await Tone.start();
     synth.sync();
     if (Tone.Transport.state === "stopped") {
       setPlaying(1);
@@ -97,7 +98,7 @@ export class Progression {
     }
   }
 
-  stop(){
+  stop() {
     clearTimeout(getPlaying().timeout);
     Tone.Transport.stop();
     Tone.Transport.cancel();
@@ -254,8 +255,9 @@ export class Progression {
           });
           notes.push({
             chord: chord.map(
-              (note) => // eslint-disable-line
-                new Note(note, beginning + choice, this.rythm[i] - choice)
+              (
+                note // eslint-disable-line
+              ) => new Note(note, beginning + choice, this.rythm[i] - choice)
             ),
             root: new Note(
               root.hight,
@@ -272,8 +274,10 @@ export class Progression {
           });
           notes.push({
             chord: this.notes[i].chord.map(
-              (note) => // eslint-disable-line
-                new Note(note.hight, beginning + choice, this.rythm[i] - choice) 
+              (
+                note // eslint-disable-line
+              ) =>
+                new Note(note.hight, beginning + choice, this.rythm[i] - choice)
             ),
             root: new Note(
               this.notes[i].root.hight,
@@ -315,8 +319,9 @@ export class Progression {
         );
         notes.push({
           chord: chord.map(
-            (note) => // eslint-disable-line
-              new Note(note, beginning, this.rythm[i] + this.rythm[i + 1])
+            (
+              note // eslint-disable-line
+            ) => new Note(note, beginning, this.rythm[i] + this.rythm[i + 1])
           ),
           root: new Note(
             root.hight,

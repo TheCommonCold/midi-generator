@@ -6,7 +6,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { newGeneration} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'
 
-function NewGeneration({updateGeneration, params}){
+function NewGeneration({updateGeneration, params, isPL}){
   const dispatch = useDispatch()
   
     const population = useSelector(state => {
@@ -21,7 +21,7 @@ function NewGeneration({updateGeneration, params}){
 
   return (
     <Button className='m-1' variant="contained" color="primary" onClick={nextGen}>
-        KOLEJNA GENERACJA  <ArrowForwardIcon/>
+        {isPL ? "KOLEJNA GENERACJA" : "NEXT GENERATION"}  <ArrowForwardIcon/>
     </Button>
   );
 }

@@ -46,7 +46,7 @@ function Grid() {
               {row.map((progression, j) => {
                 return (
                   <Col
-                    className="m-1 midi-field p-2 pb-3"
+                    className={"m-1 midi-field p-2 pb-3"  + (progression.amIPlaying ? " highlighted": "")}
                     key={j}
                     style={{ height: "170px", "min-width": "150px" }}
                   >

@@ -15,6 +15,7 @@ import { addSpeciman, deletePopulation } from "../actions/populationActions";
 import NewGeneration from "./NewGeneration";
 import { setTempo } from "../genetic/synth";
 import { rythms } from "../genetic/rythm";
+import qs from 'qs';
 
 function ControlPanel() {
   const [generation, setGeneration] = useState(0);
@@ -76,11 +77,13 @@ function ControlPanel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
+  const isPL = qs.parse(window.location.search, { ignoreQueryPrefix: true }).lang==='pl'
+
   return (
     <Jumbotron className="p-4">
       <Container>
         <Row>
-          <h2>Pokolenie: {generation}</h2>
+          <h2>{isPL ? "Pokolenie" : "Generation"}: {generation}</h2>
         </Row>
         <hr />
         <Row className="p-3">
@@ -90,7 +93,7 @@ function ControlPanel() {
                 className="w-100"
                 InputProps={{ inputProps: { min: 1 } }}
                 name="populationSize"
-                label="Rozmiar populacji"
+                label={isPL ? "Rozmiar populacji" : "Population size"}
                 type="number"
                 onChange={handleChange}
                 value={state.populationSize}
@@ -99,7 +102,7 @@ function ControlPanel() {
                 className="w-100"
                 InputProps={{ inputProps: { min: 0, max: 1, step: 0.05 } }}
                 name="mutationChance"
-                label="Szansa mutacji"
+                label={isPL ? "Szansa mutacji" : "Mutation chance"}
                 type="number"
                 onChange={handleChange}
                 value={state.mutationChance}
@@ -119,21 +122,20 @@ function ControlPanel() {
               />
               <TextField
                 className="w-100"
-                InputProps={{
-                  inputProps: { min: state.numberOfNotes, max: 12 },
-                }}
-                name="jazziness"
-                label="Złożoność akordów"
+                InputProps={{ inputProps: { min: 1 } }}
+                disabled={disabled}
+                name="progressionLength"
+                label={isPL ? "Długość frazy" : "Phrase length"}
                 type="number"
                 onChange={handleChange}
-                value={state.jazziness}
+                value={state.progressionLength}
               />
             </Card>
           </Col>
           <Col className="pb-3" style={{ "min-width": "200px" }}>
             <Card className="p-2">
               <InputLabel className="m-0" shrink>
-                Min. długość nuty
+                {isPL ? "Min. długość nuty" : "Min. note length"}
               </InputLabel>
               <Select
                 className="w-100"
@@ -152,7 +154,7 @@ function ControlPanel() {
                 })}
               </Select>
               <InputLabel className="m-0" shrink>
-                Max. długość nuty
+                {isPL ? "Max. długość nuty" : "Max. note length"}
               </InputLabel>
               <Select
                 className="w-100"
@@ -179,20 +181,22 @@ function ControlPanel() {
                 InputProps={{ inputProps: { min: 1, max: 10 } }}
                 disabled={disabled}
                 name="numberOfNotes"
-                label="Liczba nut w akordzie"
+                label={isPL ? "Liczba nut w akordzie" : "No. of notes in a chord"}
                 type="number"
                 onChange={handleChange}
                 value={state.numberOfNotes}
               />
               <TextField
                 className="w-100"
-                InputProps={{ inputProps: { min: 1 } }}
-                disabled={disabled}
-                name="progressionLength"
-                label="Długość frazy"
+                InputProps={{
+                  inputProps: { min: state.numberOfNotes, max: 12 },
+                }}
+                name="jazziness"
+                label="Złożoność akordów"
+                label={isPL ? "Złożoność akordów" : "Chord complexity"}
                 type="number"
                 onChange={handleChange}
-                value={state.progressionLength}
+                value={state.jazziness}
               />
             </Card>
           </Col>
@@ -206,13 +210,15 @@ function ControlPanel() {
                 color="primary"
                 onClick={restart}
               >
-                Zacznij od nowa <ReplayIcon />
+                {isPL ? "Zacznij od nowa" : "RESTART"}
+                 <ReplayIcon />
               </Button>
             </div>
           </Col>
           <Col>
             <div className="d-flex justify-content-center">
               <NewGeneration
+                isPL = {isPL}
                 updateGeneration={updateGeneration}
                 params={{
                   ...state,
