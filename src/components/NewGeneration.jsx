@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button} from '@material-ui/core';
+import {Button} from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { newGeneration} from '../genetic/population'
 import {addSpeciman, deletePopulation} from '../actions/populationActions'

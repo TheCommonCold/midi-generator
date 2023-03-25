@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MidiDisplay from "./MidiDisplay";
-import { Jumbotron, Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import { useSelector } from "react-redux";
 
 function Grid() {
@@ -38,7 +38,7 @@ function Grid() {
   );
 
   return (
-    <Jumbotron className="p-4">
+    <Container className="p-4">
       <Container>
         {populationFormatted.map((row, i) => {
           return (
@@ -46,9 +46,9 @@ function Grid() {
               {row.map((progression, j) => {
                 return (
                   <Col
-                    className="m-1 midi-field p-2 pb-3"
+                    className="m-1 midi-field"
                     key={j}
-                    style={{ height: "170px", "min-width": "150px" }}
+                    style={{ height: "170px", minWidth: "150px" }}
                   >
                     <MidiDisplay
                       progression={progression}
@@ -63,7 +63,7 @@ function Grid() {
           );
         })}
       </Container>
-    </Jumbotron>
+    </Container>
   );
 }
 

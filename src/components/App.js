@@ -1,17 +1,10 @@
 import Grid from './Grid'
 import ControlPanel from './ControlPanel'
-import Test from './Test'
 import '../style/App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
 
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: 'dark',
     primary: {
@@ -28,16 +21,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <ControlPanel/>
-      <Router>
-        <Switch>
-          <Route path="/test">
-            <Test />
-          </Route>
-          <Route path="/">
-            <Grid />
-          </Route>
-        </Switch>
-      </Router>
+      <Grid />
     </ThemeProvider>
   );
 }

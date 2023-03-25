@@ -14,7 +14,7 @@
     top: 0;
     z-index: 2;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.02);
+    color: rgba(255, 255, 255, 0.05);
 }
 
 .score{
@@ -43,7 +43,7 @@
   top: 0;
   z-index: 2;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.05);
 }
 
 .down-vote{
@@ -54,11 +54,11 @@
   bottom: 0;
   z-index: 2;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.05);
 }
 
 .border-color{
-  border: 1px solid rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .download{

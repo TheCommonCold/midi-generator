@@ -55,6 +55,8 @@ export class Progression {
   }
 
   play(callback) {
+    console.log("play")
+    Tone.start()
     synth.sync();
     if (Tone.Transport.state === "stopped") {
       setPlaying(1);

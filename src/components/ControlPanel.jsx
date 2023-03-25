@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Jumbotron, Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import { useDispatch } from "react-redux";
 import {
   Button,
@@ -8,8 +8,8 @@ import {
   MenuItem,
   InputLabel,
   Card,
-} from "@material-ui/core";
-import ReplayIcon from "@material-ui/icons/Replay";
+} from "@mui/material/";
+import ReplayIcon from "@mui/icons-material/Replay";
 import { createPopulation } from "../genetic/population";
 import { addSpeciman, deletePopulation } from "../actions/populationActions";
 import NewGeneration from "./NewGeneration";
@@ -77,17 +77,17 @@ function ControlPanel() {
   }, [state]);
 
   return (
-    <Jumbotron className="p-4">
+    <Container className="p-4">
       <Container>
         <Row>
           <h2>Pokolenie: {generation}</h2>
         </Row>
         <hr />
         <Row className="p-3">
-          <Col className="pb-1" style={{ "min-width": "200px" }}>
-            <Card className="p-2">
+          <Col className="pb-1" style={{ minWidth: "200px" }}>
+            <Card className="p-3">
               <TextField
-                className="w-100"
+                className="w-100 pb-3"
                 InputProps={{ inputProps: { min: 1 } }}
                 name="populationSize"
                 label="Rozmiar populacji"
@@ -106,10 +106,10 @@ function ControlPanel() {
               />
             </Card>
           </Col>
-          <Col className="pb-3" style={{ "min-width": "200px" }}>
-            <Card className="p-2">
+          <Col className="pb-3" style={{ minWidth: "200px" }}>
+            <Card className="p-3">
               <TextField
-                className="w-100"
+                className="w-100 pb-3"
                 InputProps={{ inputProps: { min: 1 } }}
                 name="tempo"
                 label="Tempo"
@@ -130,52 +130,52 @@ function ControlPanel() {
               />
             </Card>
           </Col>
-          <Col className="pb-3" style={{ "min-width": "200px" }}>
-            <Card className="p-2">
-              <InputLabel className="m-0" shrink>
-                Min. długość nuty
-              </InputLabel>
-              <Select
-                className="w-100"
-                name="windowmin"
-                value={state.windowmin}
-                onChange={handleChange}
-              >
-                {rythms.map((rythm, index) => {
-                  if (rythm < state.windowmax)
-                    return (
-                      <MenuItem key={index} value={rythm}>
-                        {rythm}
-                      </MenuItem>
-                    );
-                  else return null;
-                })}
-              </Select>
-              <InputLabel className="m-0" shrink>
-                Max. długość nuty
-              </InputLabel>
-              <Select
-                className="w-100"
-                name="windowmax"
-                value={state.windowmax}
-                onChange={handleChange}
-              >
-                {rythms.map((rythm, index) => {
-                  if (rythm > state.windowmin)
-                    return (
-                      <MenuItem key={index} value={rythm}>
-                        {rythm}
-                      </MenuItem>
-                    );
-                  else return null;
-                })}
-              </Select>
+          <Col className="pb-3" style={{ minWidth: "200px" }}>
+            <Card className="p-3">
+              <div className="pb-2">
+                <InputLabel shrink>Min. długość nuty</InputLabel>
+                <Select
+                  className="w-100"
+                  name="windowmin"
+                  value={state.windowmin}
+                  onChange={handleChange}
+                >
+                  {rythms.map((rythm, index) => {
+                    if (rythm < state.windowmax)
+                      return (
+                        <MenuItem key={index} value={rythm}>
+                          {rythm}
+                        </MenuItem>
+                      );
+                    else return null;
+                  })}
+                </Select>
+              </div>
+              <div>
+                <InputLabel shrink>Max. długość nuty</InputLabel>
+                <Select
+                  className="w-100"
+                  name="windowmax"
+                  value={state.windowmax}
+                  onChange={handleChange}
+                >
+                  {rythms.map((rythm, index) => {
+                    if (rythm > state.windowmin)
+                      return (
+                        <MenuItem key={index} value={rythm}>
+                          {rythm}
+                        </MenuItem>
+                      );
+                    else return null;
+                  })}
+                </Select>
+              </div>
             </Card>
           </Col>
-          <Col className="pb-3" style={{ "min-width": "200px" }}>
-            <Card className="p-2">
+          <Col className="pb-3" style={{ minWidth: "200px" }}>
+            <Card className="p-3">
               <TextField
-                className="w-100"
+                className="w-100 pb-3"
                 InputProps={{ inputProps: { min: 1, max: 10 } }}
                 disabled={disabled}
                 name="numberOfNotes"
@@ -224,7 +224,7 @@ function ControlPanel() {
           </Col>
         </Row>
       </Container>
-    </Jumbotron>
+    </Container>
   );
 }
 

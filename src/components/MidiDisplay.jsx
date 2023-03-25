@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import { Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 import { useDispatch } from "react-redux";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 import DisplayNotes from "./DisplayNotes";
 import {
@@ -61,8 +61,8 @@ function MidiDisplay({ progression, index, max, min }) {
   scoreMeter.reverse();
 
   return (
-    <Container className="p-0 h-100">
-      <Row className="w-100 m-0 h-100">
+    <Container className="p-0 h-100 position-relative">
+      <div className="w-100 m-0 h-100">
         <DisplayNotes
           color="#c62828"
           progression={progression}
@@ -101,29 +101,7 @@ function MidiDisplay({ progression, index, max, min }) {
         <div className="score">
           <small className="score-text">score: {progression.score}</small>
         </div>
-      </Row>
-      {/* <Row>
-        <Col sm={3}>
-          <small>
-            Score
-          </small>
-        </Col>
-        <Col sm={1} className='pl-2'>
-          <small>
-            {progression.score}
-          </small>
-        </Col>
-        <Col className='pl-2'>
-        <Slider
-          aria-labelledby="discrete-slider"
-          valueLabelDisplay="auto"
-          min={0}
-          max={100}
-          onChange={setScore}
-          value={progression.score}
-        />
-        </Col>
-      </Row> */}
+      </div>
     </Container>
   );
 }

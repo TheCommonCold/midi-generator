@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Row } from "reactstrap";
 
 export function DisplayNotes({ progression, max, min }) {
   const [cols, setCols] = useState([]);
@@ -54,7 +53,7 @@ export function DisplayNotes({ progression, max, min }) {
     }
     setCols(cols);
   }, [progression, max, min]);
-  return <Row className="w-100 m-0 h-100">{cols}</Row>;
+  return <div className="d-flex h-100">{cols}</div>;
 }
 
 export default React.memo(DisplayNotes);
