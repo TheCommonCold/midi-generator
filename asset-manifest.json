@@ -1,25 +1,15 @@
 {
   "files": {
-    "main.css": "https://thecommoncold.github.io/midi-generator/static/css/main.34135035.chunk.css",
-    "main.js": "https://thecommoncold.github.io/midi-generator/static/js/main.74c52797.chunk.js",
-    "main.js.map": "https://thecommoncold.github.io/midi-generator/static/js/main.74c52797.chunk.js.map",
-    "runtime-main.js": "https://thecommoncold.github.io/midi-generator/static/js/runtime-main.cf75d6e8.js",
-    "runtime-main.js.map": "https://thecommoncold.github.io/midi-generator/static/js/runtime-main.cf75d6e8.js.map",
-    "static/css/2.20aa2d7b.chunk.css": "https://thecommoncold.github.io/midi-generator/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.bd5987d1.chunk.js": "https://thecommoncold.github.io/midi-generator/static/js/2.bd5987d1.chunk.js",
-    "static/js/2.bd5987d1.chunk.js.map": "https://thecommoncold.github.io/midi-generator/static/js/2.bd5987d1.chunk.js.map",
-    "static/js/3.aa091c06.chunk.js": "https://thecommoncold.github.io/midi-generator/static/js/3.aa091c06.chunk.js",
-    "static/js/3.aa091c06.chunk.js.map": "https://thecommoncold.github.io/midi-generator/static/js/3.aa091c06.chunk.js.map",
+    "main.css": "https://thecommoncold.github.io/midi-generator/static/css/main.259726a7.css",
+    "main.js": "https://thecommoncold.github.io/midi-generator/static/js/main.e4051b86.js",
+    "static/js/496.48279861.chunk.js": "https://thecommoncold.github.io/midi-generator/static/js/496.48279861.chunk.js",
     "index.html": "https://thecommoncold.github.io/midi-generator/index.html",
-    "static/css/2.20aa2d7b.chunk.css.map": "https://thecommoncold.github.io/midi-generator/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.34135035.chunk.css.map": "https://thecommoncold.github.io/midi-generator/static/css/main.34135035.chunk.css.map",
-    "static/js/2.bd5987d1.chunk.js.LICENSE.txt": "https://thecommoncold.github.io/midi-generator/static/js/2.bd5987d1.chunk.js.LICENSE.txt"
+    "main.259726a7.css.map": "https://thecommoncold.github.io/midi-generator/static/css/main.259726a7.css.map",
+    "main.e4051b86.js.map": "https://thecommoncold.github.io/midi-generator/static/js/main.e4051b86.js.map",
+    "496.48279861.chunk.js.map": "https://thecommoncold.github.io/midi-generator/static/js/496.48279861.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.cf75d6e8.js",
-    "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.bd5987d1.chunk.js",
-    "static/css/main.34135035.chunk.css",
-    "static/js/main.74c52797.chunk.js"
+    "static/css/main.259726a7.css",
+    "static/js/main.e4051b86.js"
   ]
 }
